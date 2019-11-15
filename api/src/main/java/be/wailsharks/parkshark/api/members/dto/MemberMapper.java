@@ -1,4 +1,4 @@
-package be.wailsharks.parkshark.domain.members.dto;
+package be.wailsharks.parkshark.api.members.dto;
 
 import be.wailsharks.parkshark.domain.members.Member;
 

@@ -1,9 +1,9 @@
 package be.wailsharks.parkshark.api.members;
 
 
-import be.wailsharks.parkshark.domain.members.dto.CreateMemberDto;
-import be.wailsharks.parkshark.domain.members.dto.MemberDto;
-import be.wailsharks.parkshark.domain.members.dto.MemberMapper;
+import be.wailsharks.parkshark.api.members.dto.CreateMemberDto;
+import be.wailsharks.parkshark.api.members.dto.MemberDto;
+import be.wailsharks.parkshark.api.members.dto.MemberMapper;
 import be.wailsharks.parkshark.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

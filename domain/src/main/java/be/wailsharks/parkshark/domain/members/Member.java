@@ -13,5 +13,11 @@ public class Member {
     private String emailAddress;
     private LocalDate registrationDate;
 
-
+    public Member(Name name, LicensePlate licensePlate, String telephoneNr, String emailAddress) {
+        this.name = name;
+        this.licensePlate = licensePlate;
+        this.telephoneNr = telephoneNr;
+        this.emailAddress = emailAddress;
+        registrationDate = LocalDate.now();
+    }
 }
