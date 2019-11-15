@@ -7,7 +7,7 @@ public class DivisionDto {
 	public String originalName;
 	public String  director;
 
-	public static DivisionDto LibrarianDto() {
+	public static DivisionDto DivisionDto() {
 		return new DivisionDto();
 	}
 
