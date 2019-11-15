@@ -11,5 +11,11 @@
 
     <artifactId>service</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>be.wailsharks</groupId>
+            <artifactId>domain</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
