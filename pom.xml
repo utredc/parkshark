@@ -16,13 +16,12 @@
     </parent>
     <groupId>be.wailsharks</groupId>
     <artifactId>parkshark</artifactId>
-    <version>${project.version}</version>
+    <version>1.0</version>
     <name>parkshark</name>
     <description>I am the shark from the park</description>
 
     <properties>
         <java.version>12</java.version>
-        <project.version>1.0</project.version>
     </properties>
 
     <dependencies>
