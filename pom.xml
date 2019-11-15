@@ -8,11 +8,11 @@
         <version>2.2.1.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>be.niels</groupId>
-    <artifactId>jpa-skeleton</artifactId>
+    <groupId>be.wailsharks</groupId>
+    <artifactId>parkshark</artifactId>
     <version>1.0</version>
-    <name>jpa-skeleton</name>
-    <description>Demo project for Spring Boot</description>
+    <name>parkshark</name>
+    <description>I am the shark from the park</description>
 
     <properties>
         <java.version>12</java.version>
