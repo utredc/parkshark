@@ -4,6 +4,11 @@ import javax.persistence.*;
 
 @Embeddable
 public class Address {
+    public Address(String streetName, String houseNumber,City city) {
+        this.streetName = streetName;
+        this.houseNumber = houseNumber;
+
+    }
 
     @Column (name = "STREET_NAME")
     private String streetName;
@@ -14,4 +19,6 @@ public class Address {
     @ManyToOne
     @JoinColumn(name ="CITY_ID")
     private City city;
+
+
 }

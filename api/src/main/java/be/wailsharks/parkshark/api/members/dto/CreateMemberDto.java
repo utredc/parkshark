@@ -5,9 +5,25 @@ public class CreateMemberDto {
     private String firstName;
     private String lastName;
     private String licensePlateNr;
+
     private String licensePlateCountry;
+
     private String telephoneNr;
     private String emailAddress;
+    private String streetName;
+    private String streetNumber;
+    private long cityId;
+    public String getStreetName() {
+        return streetName;
+    }
+
+    public long getCityId() {
+        return cityId;
+    }
+
+    public String getStreetNumber() {
+        return streetNumber;
+    }
 
     public String getFirstName() {
         return firstName;

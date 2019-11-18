@@ -1,5 +1,6 @@
 package be.wailsharks.parkshark.domain.members;
 
+import be.wailsharks.parkshark.domain.common.Address;
 import be.wailsharks.parkshark.domain.common.LicensePlate;
 import be.wailsharks.parkshark.domain.common.Name;
 
@@ -39,6 +40,22 @@ public class Member {
     @Column(name = "REGISTRATION_DATE")
     private LocalDate registrationDate;
 
+    @Embedded
+    private Address address;
+
+    public Member(Name name, LicensePlate licensePlate, String telephoneNr, String emailAddress, Address address) {
+        this.name = name;
+        this.licensePlate = licensePlate;
+        this.telephoneNr = telephoneNr;
+        this.emailAddress = emailAddress;
+        this.address = address;
+        registrationDate = LocalDate.now();
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
     public Name getName() {
         return name;
     }
@@ -57,13 +74,5 @@ public class Member {
 
     public LocalDate getRegistrationDate() {
         return registrationDate;
-    }
-
-    public Member(Name name, LicensePlate licensePlate, String telephoneNr, String emailAddress) {
-        this.name = name;
-        this.licensePlate = licensePlate;
-        this.telephoneNr = telephoneNr;
-        this.emailAddress = emailAddress;
-        registrationDate = LocalDate.now();
     }
 }
