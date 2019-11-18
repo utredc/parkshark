@@ -19,18 +19,20 @@ public class ParkingLotController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ParkingLotController.class);
 
     private ParkingLotService parkingLotService;
+    private ParkingLotMapper parkingLotMapper;
 
     @Autowired
-    public ParkingLotController (ParkingLotService parkingLotService){
+    public ParkingLotController(ParkingLotService parkingLotService, ParkingLotMapper parkingLotMapper){
         this.parkingLotService = parkingLotService;
+        this.parkingLotMapper = parkingLotMapper;
     }
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ParkingLotDto createParkingLot(@RequestBody CreateParkingLotDto createParkingLotDto) {
         LOGGER.info("Create division - name: " + createParkingLotDto.name);
-        return ParkingLotMapper.mapToParkingLotDto(
+        return parkingLotMapper.mapToParkingLotDto(
                 parkingLotService.addParkinglot(
-                        ParkingLotMapper.mapToDomain(createParkingLotDto)));
+                        parkingLotMapper.mapToDomain(createParkingLotDto)));
     }
 }

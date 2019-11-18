@@ -25,6 +25,8 @@ public class ParkingLot {
     @Column(name = "MAX_CAPACITY")
     private int maxCapacity;
 
+    @ManyToOne
+    @JoinColumn (name = "CONTACT_PERSON_ID")
     private ContactPerson contactPerson;
 
     @Embedded

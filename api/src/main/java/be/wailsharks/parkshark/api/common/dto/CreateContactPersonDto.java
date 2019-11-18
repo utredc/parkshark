@@ -5,8 +5,7 @@ public class CreateContactPersonDto {
     public String firstName;
     public String Email;
     public String streetName;
-    public String streetNumber;
-    public String postalCode;
+    public String houseNumber;
     public int cityID;
     public String mobileNr;
     public String phoneNr;
@@ -27,13 +26,11 @@ public class CreateContactPersonDto {
         return streetName;
     }
 
-    public String getStreetNumber() {
-        return streetNumber;
+    public String getHouseNumber() {
+        return houseNumber;
     }
 
-    public String getPostalCode() {
-        return postalCode;
-    }
+
 
     public int getCityID() {
         return cityID;
