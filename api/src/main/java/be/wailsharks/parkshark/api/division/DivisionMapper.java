@@ -11,11 +11,12 @@ public class DivisionMapper {
 				.setId(division.getId())
 				.setName(division.getName())
 				.setOriginalName(division.getOriginalName())
-				.setDirector(division.getDirector());
+				.setDirector(division.getDirector())
+				.setParentDivisionId(division.getParentDivisionId());
 	}
 
 	public static Division mapToDomain(CreateDivisionDto divisionDto) {
-		return new Division(divisionDto.name, divisionDto.originalName, divisionDto.director);
+		return new Division(divisionDto.name, divisionDto.originalName, divisionDto.director, divisionDto.parentDivisionId );
 	}
 
 }

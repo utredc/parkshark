@@ -30,10 +30,10 @@ public class DivisionController {
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public DivisionDto createDivision(@RequestBody CreateDivisionDto divisionDto) {
-        LOGGER.info("Create division - name: " + divisionDto.name);
+    public DivisionDto createDivision(@RequestBody CreateDivisionDto createDivisionDto) {
+        LOGGER.info("Create division - name: " + createDivisionDto.name);
         return DivisionMapper.mapToDivisionDto(
-                divisionService.addDivision(DivisionMapper.mapToDomain(divisionDto)));
+                divisionService.addDivision(DivisionMapper.mapToDomain(createDivisionDto)));
     }
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)

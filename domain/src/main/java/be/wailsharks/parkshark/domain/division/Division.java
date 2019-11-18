@@ -22,6 +22,10 @@ public class Division {
     @Column(name = "DIRECTOR_NAME")
     private String director;
 
+    @Column(name = "PARENT_DIVISION_ID")
+    private Long parentDivisionId;
+
+
     public Division() {
     }
 
@@ -29,6 +33,13 @@ public class Division {
         this.name = name;
         this.originalName = originalName;
         this.director = director;
+    }
+
+    public Division(String name, String originalName, String director, Long parentDivisionId) {
+        this.name = name;
+        this.originalName = originalName;
+        this.director = director;
+        this.parentDivisionId = parentDivisionId;
     }
 
     public long getId() {
@@ -47,6 +58,10 @@ public class Division {
         return director;
     }
 
+    public Long getParentDivisionId() {
+        return parentDivisionId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -59,4 +74,5 @@ public class Division {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }
