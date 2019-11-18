@@ -30,4 +30,15 @@ public class MemberMapper {
                 .setRegistrationDate(memberToConvert.getRegistrationDate().toString())
                 .setId(memberToConvert.getId());
     }
+
+    public static BasicMemberInfoDto convertMemberToBasicInfoDto(Member memberToConvert) {
+        return BasicMemberInfoDto.BasicMemberInfoDto()
+                .setFirstName(memberToConvert.getName().getFirstName())
+                .setLastName(memberToConvert.getName().getLastName())
+                .setEmailAddress(memberToConvert.getEmailAddress())
+                .setLicensePlateNr(memberToConvert.getLicensePlate().getPlateNumber())
+                .setTelephoneNr(memberToConvert.getTelephoneNr())
+                .setRegistrationDate(memberToConvert.getRegistrationDate().toString())
+                .setId(memberToConvert.getId());
+    }
 }

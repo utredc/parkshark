@@ -5,6 +5,9 @@ import be.wailsharks.parkshark.domain.members.Member;
 import be.wailsharks.parkshark.domain.members.MemberRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class MemberService {
 
@@ -20,4 +23,9 @@ public class MemberService {
         return newMember;
     }
 
+    public List<Member> getAllMembers() {
+        List<Member> result = new ArrayList<>();
+        memberRepository.findAll().forEach(result::add);
+        return result;
+    }
 }
