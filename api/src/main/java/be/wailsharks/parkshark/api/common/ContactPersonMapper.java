@@ -33,8 +33,16 @@ public class ContactPersonMapper {
                 .setEmail(contactPerson.getEmail())
                 .setStreetName(contactPerson.getAddress().getStreetName())
                 .setStreetNumber(contactPerson.getAddress().getHouseNumber())
-                .setPostalCode(cityService.getCityByID(contactPerson.getAddress().getCityId()).getPostalCode())
-                .setCity(cityService.getCityByID(contactPerson.getAddress().getCityId()).getCityName())
+                .setPostalCode(cityService
+                        .getCityByID(contactPerson
+                                .getAddress()
+                                .getCityId())
+                        .getPostalCode())
+                .setCity(cityService
+                        .getCityByID(contactPerson
+                                .getAddress()
+                                .getCityId())
+                        .getCityName())
                 .setMobileNr(contactPerson.getMobileNr())
                 .setPhoneNr(contactPerson.getPhoneNr());
 

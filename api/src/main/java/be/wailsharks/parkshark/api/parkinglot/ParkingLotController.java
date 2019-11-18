@@ -32,7 +32,7 @@ public class ParkingLotController {
     public ParkingLotDto createParkingLot(@RequestBody CreateParkingLotDto createParkingLotDto) {
         LOGGER.info("Create division - name: " + createParkingLotDto.name);
         return parkingLotMapper.mapToParkingLotDto(
-                parkingLotService.addParkinglot(
+                parkingLotService.addParkingLot(
                         parkingLotMapper.mapToDomain(createParkingLotDto)));
     }
 }

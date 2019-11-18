@@ -12,7 +12,7 @@ public class ParkingLotService {
         this.parkingLotRepository = parkingLotRepository;
     }
 
-    public ParkingLot addParkinglot(ParkingLot parkingLotToAdd) {
+    public ParkingLot addParkingLot(ParkingLot parkingLotToAdd) {
         return parkingLotRepository.save(parkingLotToAdd);
     }
 }

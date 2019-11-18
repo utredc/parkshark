@@ -30,8 +30,6 @@ public class CreateContactPersonDto {
         return houseNumber;
     }
 
-
-
     public int getCityID() {
         return cityID;
     }

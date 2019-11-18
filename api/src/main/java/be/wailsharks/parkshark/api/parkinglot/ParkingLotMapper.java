@@ -58,7 +58,6 @@ public class ParkingLotMapper {
                                 .getCityId())
                         .getCityName())
                 .setCategory(parkinglot.getCategory().toString())
-                .setDivisionDto(DivisionMapper.mapToDivisionDto(parkinglot.getDivision()))
-                ;
+                .setDivisionDto(DivisionMapper.mapToDivisionDto(parkinglot.getDivision()));
     }
 }
