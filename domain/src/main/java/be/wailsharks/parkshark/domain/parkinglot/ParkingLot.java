@@ -2,6 +2,7 @@ package be.wailsharks.parkshark.domain.parkinglot;
 
 import be.wailsharks.parkshark.domain.common.Address;
 import be.wailsharks.parkshark.domain.common.ContactPerson;
+import be.wailsharks.parkshark.domain.division.Division;
 
 import javax.persistence.*;
 
@@ -10,6 +11,8 @@ import javax.persistence.*;
 public class ParkingLot {
 
     @Id
+    @SequenceGenerator(name = "parkingLotSeqGen", sequenceName = "PARKING_LOT_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "parkingLotSeqGen")
     @Column(name = "ID")
     private long id;
 
@@ -32,12 +35,20 @@ public class ParkingLot {
     private Category category;
 
 
-//    @JoinColumn(name = "DIVISION_ID")
-//    @ManyToOne
-//    private Division division;
-
+    @JoinColumn(name = "DIVISION_ID")
+    @ManyToOne
+    private Division division;
 
     public ParkingLot() {
     }
 
+    public ParkingLot(double pricePerHour, String name, int maxCapacity, ContactPerson contactPerson, Address address, Category category, Division division) {
+        this.pricePerHour = pricePerHour;
+        this.name = name;
+        this.maxCapacity = maxCapacity;
+        this.contactPerson = contactPerson;
+        this.address = address;
+        this.category = category;
+        this.division = division;
+    }
 }
