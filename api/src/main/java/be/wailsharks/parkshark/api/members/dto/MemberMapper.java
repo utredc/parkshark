@@ -28,7 +28,10 @@ public class MemberMapper {
                 .setLicensePlateNr(memberToConvert.getLicensePlate().getPlateNumber())
                 .setTelephoneNr(memberToConvert.getTelephoneNr())
                 .setRegistrationDate(memberToConvert.getRegistrationDate().toString())
-                .setId(memberToConvert.getId());
+                .setId(memberToConvert.getId())
+                .setStreetName(memberToConvert.getAddress().getStreetName())
+                .setStreetNr(memberToConvert.getAddress().getHouseNumber())
+                ;
     }
 
     public static BasicMemberInfoDto convertMemberToBasicInfoDto(Member memberToConvert) {

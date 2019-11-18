@@ -19,13 +19,18 @@ public class MemberService {
     }
 
     public Member registerMember(Member memberToRegister) {
-        Member newMember = memberRepository.save(memberToRegister);
-        return newMember;
+        return memberRepository.save(memberToRegister);
     }
 
     public List<Member> getAllMembers() {
         List<Member> result = new ArrayList<>();
         memberRepository.findAll().forEach(result::add);
         return result;
+    }
+
+    public Member getSpecificMember(String id) {
+        if (memberRepository.findById(Long.parseLong(id)).isPresent()){
+            return memberRepository.findById(Long.parseLong(id)).get();
+        } else throw new IllegalArgumentException("No member with this id");
     }
 }
