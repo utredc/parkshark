@@ -8,6 +8,8 @@ public class ContactPerson {
 
     @Id
     @Column(name = "ID")
+    @SequenceGenerator(name = "contactPersonSeqGen", sequenceName = "CONTACT_PERSON_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contactPersonSeqGen")
     private long id;
 
     @Embedded
@@ -25,4 +27,27 @@ public class ContactPerson {
     @Column(name ="PHONE_NR")
     private String phoneNr;
 
+    public long getId() {
+        return id;
+    }
+
+    public Name getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public String getMobileNr() {
+        return mobileNr;
+    }
+
+    public String getPhoneNr() {
+        return phoneNr;
+    }
 }

@@ -51,4 +51,36 @@ public class ParkingLot {
         this.category = category;
         this.division = division;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public double getPricePerHour() {
+        return pricePerHour;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getMaxCapacity() {
+        return maxCapacity;
+    }
+
+    public ContactPerson getContactPerson() {
+        return contactPerson;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public Division getDivision() {
+        return division;
+    }
 }

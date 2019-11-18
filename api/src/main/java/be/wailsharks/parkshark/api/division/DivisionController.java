@@ -29,7 +29,7 @@ public class DivisionController {
 		this.divisionService = divisionService;
 	}
 
-;	@PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+	@PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
 	public DivisionDto createDivision(@RequestBody CreateDivisionDto divisionDto) {
 		LOGGER.info("Create division - name: " + divisionDto.name);
