@@ -1,6 +1,7 @@
 package be.wailsharks.parkshark.api.members;
 
 
+import be.wailsharks.parkshark.api.members.dto.BasicMemberInfoDto;
 import be.wailsharks.parkshark.api.members.dto.CreateMemberDto;
 import be.wailsharks.parkshark.api.members.dto.MemberDto;
 import be.wailsharks.parkshark.api.members.dto.MemberMapper;
@@ -10,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/members")
@@ -31,5 +35,13 @@ public class MemberController {
     public MemberDto registerMember(@RequestBody CreateMemberDto memberToCreate) {
         Member newMember = memberService.registerMember(memberMapper.convertCreateMemberDtoToMember(memberToCreate));
         return MemberMapper.convertMemberToDto(newMember);
+    }
+
+    @GetMapping(produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public List<BasicMemberInfoDto> getAllMembers() {
+        return memberService.getAllMembers().stream()
+                .map(MemberMapper::convertMemberToBasicInfoDto)
+                .collect(Collectors.toList());
     }
 }

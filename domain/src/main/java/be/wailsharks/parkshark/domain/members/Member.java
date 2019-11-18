@@ -56,6 +56,9 @@ public class Member {
         registrationDate = LocalDate.now();
     }
 
+    public Member() {
+    }
+
     public Address getAddress() {
         return address;
     }
