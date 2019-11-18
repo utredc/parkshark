@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping(ParkingLotController.PARKING_LOT_CONTROLLER_RESOURCE_URL)
 public class ParkingLotController {
@@ -26,6 +29,16 @@ public class ParkingLotController {
         this.parkingLotService = parkingLotService;
         this.parkingLotMapper = parkingLotMapper;
     }
+
+    @GetMapping(produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public List<ParkingLotDto> getAllParkingLots(){
+        return parkingLotService.getAllParkingLots()
+                .stream()
+                .map(parkingLot -> parkingLotMapper.mapToParkingLotDto(parkingLot))
+                .collect(Collectors.toList());
+    }
+
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
