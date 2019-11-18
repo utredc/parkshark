@@ -43,6 +43,10 @@ public class Member {
     @Embedded
     private Address address;
 
+    public long getId() {
+        return id;
+    }
+
     public Member(Name name, LicensePlate licensePlate, String telephoneNr, String emailAddress, Address address) {
         this.name = name;
         this.licensePlate = licensePlate;

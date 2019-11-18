@@ -9,12 +9,10 @@ import org.springframework.stereotype.Service;
 public class MemberService {
 
     private MemberRepository memberRepository;
-    private CityService cityService;
 
 
-    public MemberService(MemberRepository memberRepository, CityService cityService) {
+    public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
-        this.cityService = cityService;
     }
 
     public Member registerMember(Member memberToRegister) {

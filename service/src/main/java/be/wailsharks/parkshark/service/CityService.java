@@ -16,8 +16,4 @@ public class CityService {
     public City getCityByID(long id) {
         return cityRepository.findById(id).get();
     }
-
-    public boolean checkIfCityInDatabase(String postalCode) {
-        return cityRepository.existsByPostalCode(postalCode);
-    }
 }

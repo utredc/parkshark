@@ -11,8 +11,22 @@ public class CreateMemberDto {
     private String telephoneNr;
     private String emailAddress;
     private String streetName;
+
     private String streetNumber;
+
     private long cityId;
+
+    public void setStreetName(String streetName) {
+        this.streetName = streetName;
+    }
+
+    public void setStreetNumber(String streetNumber) {
+        this.streetNumber = streetNumber;
+    }
+
+    public void setCityId(long cityId) {
+        this.cityId = cityId;
+    }
     public String getStreetName() {
         return streetName;
     }

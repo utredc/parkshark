@@ -8,6 +8,7 @@ import be.wailsharks.parkshark.domain.members.Member;
 import be.wailsharks.parkshark.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,6 +17,8 @@ public class MemberController {
 
     private final MemberService memberService;
     private final MemberMapper memberMapper;
+    private static final String APPLICATION_JSON_VALUE = MediaType.APPLICATION_JSON_VALUE;
+
 
     @Autowired
     public MemberController(MemberService memberService, MemberMapper memberMapper) {
@@ -23,7 +26,7 @@ public class MemberController {
         this.memberMapper = memberMapper;
     }
 
-    @PostMapping(consumes = "application/json", produces = "application/json")
+    @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public MemberDto registerMember(@RequestBody CreateMemberDto memberToCreate) {
         Member newMember = memberService.registerMember(memberMapper.convertCreateMemberDtoToMember(memberToCreate));

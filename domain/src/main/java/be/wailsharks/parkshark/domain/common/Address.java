@@ -4,21 +4,36 @@ import javax.persistence.*;
 
 @Embeddable
 public class Address {
-    public Address(String streetName, String houseNumber,City city) {
+    public Address(String streetName, String houseNumber, long cityId) {
         this.streetName = streetName;
         this.houseNumber = houseNumber;
-
+        this.cityId = cityId;
     }
 
-    @Column (name = "STREET_NAME")
+    public Address() {
+    }
+
+    @Column(name = "STREET_NAME")
     private String streetName;
 
-    @Column (name = "STREET_NUMBER")
+    public String getStreetName() {
+        return streetName;
+    }
+
+    public String getHouseNumber() {
+        return houseNumber;
+    }
+
+    public long getCityId() {
+        return cityId;
+    }
+
+    @Column(name = "STREET_NUMBER")
     private String houseNumber;
 
-    @ManyToOne
-    @JoinColumn(name ="CITY_ID")
-    private City city;
+//    @ManyToOne
+//    @JoinColumn(name = "CITY_ID")
+    private long cityId;
 
 
 }
