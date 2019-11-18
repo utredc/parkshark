@@ -19,8 +19,7 @@ public class MemberService {
     }
 
     public Member registerMember(Member memberToRegister) {
-        Member newMember = memberRepository.save(memberToRegister);
-        return newMember;
+        return memberRepository.save(memberToRegister);
     }
 
     public List<Member> getAllMembers() {
