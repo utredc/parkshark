@@ -4,6 +4,7 @@ package be.wailsharks.parkshark.api.members;
 import be.wailsharks.parkshark.api.members.dto.CreateMemberDto;
 import be.wailsharks.parkshark.api.members.dto.MemberDto;
 import be.wailsharks.parkshark.api.members.dto.MemberMapper;
+import be.wailsharks.parkshark.domain.members.Member;
 import be.wailsharks.parkshark.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class MemberController {
     @PostMapping(consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public MemberDto registerMember(@RequestBody CreateMemberDto memberToCreate) {
-
-        return memberService.registerMember(MemberMapper.memberDtoToMember(memberToCreate));
+        Member newMember = memberService.registerMember(MemberMapper.convertCreateMemberDtoToMember(memberToCreate));
+        return MemberMapper.convertMemberToDto(newMember);
     }
 }
