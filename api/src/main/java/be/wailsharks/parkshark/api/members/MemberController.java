@@ -44,4 +44,11 @@ public class MemberController {
                 .map(MemberMapper::convertMemberToBasicInfoDto)
                 .collect(Collectors.toList());
     }
+
+    @GetMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public MemberDto getSpecificMember(@PathVariable("id") String id) {
+        Member result =  memberService.getSpecificMember(id);
+        return MemberMapper.convertMemberToDto(result);
+    }
 }

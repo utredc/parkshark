@@ -11,7 +11,46 @@ public class MemberDto {
     private String emailAddress;
     private String registrationDate;
     private long id;
+    private String streetNr;
+    private String streetName;
+    private String postalCode;
+    private String city;
 
+    public String getStreetNr() {
+        return streetNr;
+    }
+
+    public MemberDto setStreetNr(String streetNr) {
+        this.streetNr = streetNr;
+        return this;
+    }
+
+    public String getStreetName() {
+        return streetName;
+    }
+
+    public MemberDto setStreetName(String streetName) {
+        this.streetName = streetName;
+        return this;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public MemberDto setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+        return this;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public MemberDto setCity(String city) {
+        this.city = city;
+        return this;
+    }
 
     public static MemberDto MemberDto() {
         return new MemberDto();

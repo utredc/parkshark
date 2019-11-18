@@ -28,4 +28,10 @@ public class MemberService {
         memberRepository.findAll().forEach(result::add);
         return result;
     }
+
+    public Member getSpecificMember(String id) {
+        if (memberRepository.findById(Long.parseLong(id)).isPresent()){
+            return memberRepository.findById(Long.parseLong(id)).get();
+        } else throw new IllegalArgumentException("No member with this id");
+    }
 }
