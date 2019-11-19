@@ -39,6 +39,12 @@ public class ParkingLotController {
                 .collect(Collectors.toList());
     }
 
+    @GetMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
+    public ParkingLotDto getParkingLotById(@PathVariable ("id") long id){
+        return parkingLotMapper.mapToParkingLotDto(parkingLotService.getByID(id));
+    }
+
+
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
