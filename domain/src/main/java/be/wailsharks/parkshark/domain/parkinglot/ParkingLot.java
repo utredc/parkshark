@@ -59,7 +59,7 @@ public class ParkingLot {
     }
 
     public boolean isFull() {
-        return (maxCapacity - amountOfCarsParked > 0);
+        return (amountOfCarsParked >= maxCapacity);
     }
 
     public long getId() {
@@ -105,5 +105,9 @@ public class ParkingLot {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public void addCar() {
+        amountOfCarsParked++;
     }
 }

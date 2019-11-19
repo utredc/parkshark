@@ -40,4 +40,24 @@ public class ParkingAllocationDto {
         this.startTime = startTime;
         return this;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public long getMemberId() {
+        return memberId;
+    }
+
+    public String getLicensePlateNumber() {
+        return licensePlateNumber;
+    }
+
+    public long getParkingLotId() {
+        return parkingLotId;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
 }

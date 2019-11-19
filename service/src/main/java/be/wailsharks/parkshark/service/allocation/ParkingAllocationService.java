@@ -20,12 +20,9 @@ public class ParkingAllocationService {
     }
 
     public ParkingAllocation startParkingAllocation(ParkingAllocation parkingAllocation) {
-
-//            check for valid member
-//            check if license plate belongs to member
-//            parking lot is valid
-        //parking lot != full
-        return null;
+        parkingAllocationRepository.save(parkingAllocation);
+        parkingAllocation.getParkingLot().addCar();
+        return parkingAllocation;
     }
 
 }

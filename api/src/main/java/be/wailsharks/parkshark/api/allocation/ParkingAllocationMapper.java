@@ -26,18 +26,22 @@ public class ParkingAllocationMapper {
     public ParkingAllocation mapToDomain(StartParkingAllocationDto startParkingAllocationDto) {
         Member parkingMember = memberService.getSpecificMember(startParkingAllocationDto.getMemberId());
         if (parkingMember.getMembershipLevel() != MembershipLevel.GOLD) {
-            if (startParkingAllocationDto.getLicensePlateNr().equals(parkingMember.getLicensePlate().getPlateNumber())) {
+            if (!startParkingAllocationDto.getLicensePlateNr().equals(parkingMember.getLicensePlate().getPlateNumber())) {
                 throw new IllegalArgumentException("Wrong car");
             }
         }
-        ParkingLot parkingLot = parkingLotService.
+        ParkingLot parkingLot = parkingLotService.getByID(startParkingAllocationDto.getParkingLotId());
+        if (parkingLot.isFull()) {
+            throw new IllegalStateException("Parking is vol");
+        }
+        return new ParkingAllocation(parkingMember, startParkingAllocationDto.licensePlateNr, parkingLot);
     }
 
     public static ParkingAllocationDto mapToDto(ParkingAllocation parkingAllocation) {
         return new ParkingAllocationDto()
                 .setId(parkingAllocation.getId())
                 .setMemberId(parkingAllocation.getMember().getId())
-                .setLicensePlateNumber(parkingAllocation.getLicensePlate().getPlateNumber())
+                .setLicensePlateNumber(parkingAllocation.getLicensePlateNr())
                 .setParkingLotId(parkingAllocation.getParkingLot().getId())
                 .setStartTime(parkingAllocation.getStartTime().toString());
     }

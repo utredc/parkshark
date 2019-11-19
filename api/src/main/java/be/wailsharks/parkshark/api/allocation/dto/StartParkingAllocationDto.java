@@ -6,7 +6,7 @@ public class StartParkingAllocationDto {
 
     public String licensePlateNr;
 
-    public String parkingLotId;
+    public long parkingLotId;
 
     public Long getMemberId() {
         return memberId;
@@ -24,11 +24,11 @@ public class StartParkingAllocationDto {
         this.licensePlateNr = licensePlateNr;
     }
 
-    public String getParkingLotId() {
+    public long getParkingLotId() {
         return parkingLotId;
     }
 
-    public void setParkingLotId(String parkingLotId) {
+    public void setParkingLotId(long parkingLotId) {
         this.parkingLotId = parkingLotId;
     }
 }
