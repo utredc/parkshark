@@ -1,8 +1,6 @@
 package be.wailsharks.parkshark.domain.common;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +12,8 @@ public class City {
 
     @Id
     @Column (name ="CITY_ID")
+    @SequenceGenerator(name = "citySeqGen", sequenceName = "CITY_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "citySeqGen")
     private long id;
 
     @Column (name= "POSTAL_CODE")
@@ -45,5 +45,9 @@ public class City {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public long getId() {
+        return id;
     }
 }

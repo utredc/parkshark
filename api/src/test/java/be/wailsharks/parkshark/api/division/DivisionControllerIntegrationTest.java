@@ -1,5 +1,6 @@
 package be.wailsharks.parkshark.api.division;
 
+import be.wailsharks.parkshark.api.TestRunApplication;
 import be.wailsharks.parkshark.api.division.dto.CreateDivisionDto;
 import be.wailsharks.parkshark.api.division.dto.DivisionDto;
 import be.wailsharks.parkshark.domain.division.Division;
