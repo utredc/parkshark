@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "MEMBER")
 public class Member {
+    public static final MembershipLevel DEFAULT_MEMBERSHIP_LEVEL = MembershipLevel.BRONZE;
 
     @Id
     @SequenceGenerator(name = "member_seq_gen", sequenceName = "MEMBER_SEQ", allocationSize = 1)
@@ -43,16 +44,21 @@ public class Member {
     @Embedded
     private Address address;
 
+    @Column(name = "MEMBER_LEVEL")
+    @Enumerated(EnumType.STRING)
+    private MembershipLevel membershipLevel;
+
     public long getId() {
         return id;
     }
 
-    public Member(Name name, LicensePlate licensePlate, String telephoneNr, String emailAddress, Address address) {
+    public Member(Name name, LicensePlate licensePlate, String telephoneNr, String emailAddress, Address address, MembershipLevel membershipLevel) {
         this.name = name;
         this.licensePlate = licensePlate;
         this.telephoneNr = telephoneNr;
         this.emailAddress = emailAddress;
         this.address = address;
+        this.membershipLevel = membershipLevel;
         registrationDate = LocalDate.now();
     }
 
@@ -73,6 +79,10 @@ public class Member {
 
     public String getTelephoneNr() {
         return telephoneNr;
+    }
+
+    public MembershipLevel getMembershipLevel() {
+        return membershipLevel;
     }
 
     public String getEmailAddress() {
