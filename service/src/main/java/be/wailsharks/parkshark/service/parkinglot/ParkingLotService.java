@@ -11,7 +11,7 @@ import java.util.List;
 public class ParkingLotService {
     private ParkingLotRepository parkingLotRepository;
 
-    public ParkingLotService(ParkingLotRepository parkingLotRepository){
+    public ParkingLotService(ParkingLotRepository parkingLotRepository) {
         this.parkingLotRepository = parkingLotRepository;
     }
 
@@ -23,5 +23,9 @@ public class ParkingLotService {
         List<ParkingLot> parkingLots = new ArrayList<>();
         parkingLotRepository.findAll().forEach(parkingLots::add);
         return parkingLots;
+    }
+
+    public ParkingLot getByID(long id) {
+        return parkingLotRepository.findById(id).get();
     }
 }
