@@ -27,9 +27,9 @@ public class MemberService {
         return result;
     }
 
-    public Member getSpecificMember(String id) {
-        if (memberRepository.findById(Long.parseLong(id)).isPresent()){
-            return memberRepository.findById(Long.parseLong(id)).get();
+    public Member getSpecificMember(Long id) {
+        if (memberRepository.findById(id).isPresent()) {
+            return memberRepository.findById(id).get();
         } else throw new IllegalArgumentException("No member with this id");
     }
 }
