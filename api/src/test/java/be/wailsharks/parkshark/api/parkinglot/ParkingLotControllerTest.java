@@ -49,10 +49,10 @@ class ParkingLotControllerTest {
     @BeforeEach
     void setUp() {
 
+        parkingLotRepository.deleteAll();
         divisionRepository.deleteAll();
         contactPersonRepository.deleteAll();
         cityRepository.deleteAll();
-        parkingLotRepository.deleteAll();
     }
 
     @Test
