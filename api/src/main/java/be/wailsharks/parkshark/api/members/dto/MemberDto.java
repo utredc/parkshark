@@ -15,6 +15,7 @@ public class MemberDto {
     private String streetName;
     private String postalCode;
     private String city;
+    private String membershipLevel;
 
     public String getStreetNr() {
         return streetNr;
@@ -126,5 +127,14 @@ public class MemberDto {
 
     public long getId() {
         return id;
+    }
+
+    public String getMembershipLevel() {
+        return membershipLevel;
+    }
+
+    public MemberDto setMembershipLevel(String membershipLevel) {
+        this.membershipLevel = membershipLevel;
+        return this;
     }
 }

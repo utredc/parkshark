@@ -10,7 +10,7 @@ public class CreateMemberDto {
     private String emailAddress;
     private String streetName;
     private String streetNumber;
-
+    private String membershipLevel;
     private long cityId;
 
     public void setStreetName(String streetName) {
@@ -24,6 +24,7 @@ public class CreateMemberDto {
     public void setCityId(long cityId) {
         this.cityId = cityId;
     }
+
     public String getStreetName() {
         return streetName;
     }
@@ -82,5 +83,13 @@ public class CreateMemberDto {
 
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
+    }
+
+    public String getMembershipLevel() {
+        return membershipLevel;
+    }
+
+    public void setMembershipLevel(String membershipLevel) {
+        this.membershipLevel = membershipLevel;
     }
 }
