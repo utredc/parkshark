@@ -10,16 +10,17 @@ CREATE TABLE "DIVISION"
 
 CREATE TABLE "PARKING_LOT"
 (
-    "ID"                NUMBER        NOT NULL,
-    "DIVISION_ID"       NUMBER        NOT NULL,
-    "NAME"              VARCHAR2(255) NOT NULL,
-    "MAX_CAPACITY"      NUMBER        NOT NULL,
-    "CONTACT_PERSON_ID" NUMBER        NOT NULL,
-    "STREET_NAME"       VARCHAR2(255) NOT NULL,
-    "STREET_NUMBER"     VARCHAR2(255) NOT NULL,
-    "CITY_ID"           NUMBER        NOT NULL,
-    "CATEGORY"          VARCHAR2(255) NOT NULL,
-    "PRICE_PER_HOUR"    NUMBER        NOT NULL,
+    "ID"                    NUMBER        NOT NULL,
+    "DIVISION_ID"           NUMBER        NOT NULL,
+    "NAME"                  VARCHAR2(255) NOT NULL,
+    "MAX_CAPACITY"          NUMBER        NOT NULL,
+    "CONTACT_PERSON_ID"     NUMBER        NOT NULL,
+    "STREET_NAME"           VARCHAR2(255) NOT NULL,
+    "STREET_NUMBER"         VARCHAR2(255) NOT NULL,
+    "CITY_ID"               NUMBER        NOT NULL,
+    "CATEGORY"              VARCHAR2(255) NOT NULL,
+    "PRICE_PER_HOUR"        NUMBER        NOT NULL,
+    "AMOUNT_OF_CARS_PARKED" NUMBER        NOT NULL,
     constraint PARKING_LOT_PK PRIMARY KEY ("ID")
 );
 
