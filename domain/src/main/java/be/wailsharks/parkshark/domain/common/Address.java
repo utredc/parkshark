@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 @Embeddable
 public class Address {
+
     public Address(String streetName, String houseNumber, long cityId) {
         this.streetName = streetName;
         this.houseNumber = houseNumber;

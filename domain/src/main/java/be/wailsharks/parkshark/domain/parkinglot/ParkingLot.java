@@ -5,6 +5,7 @@ import be.wailsharks.parkshark.domain.common.ContactPerson;
 import be.wailsharks.parkshark.domain.division.Division;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "PARKING_LOT")
@@ -84,5 +85,18 @@ public class ParkingLot {
 
     public Division getDivision() {
         return division;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ParkingLot that = (ParkingLot) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
