@@ -5,12 +5,12 @@ public class CreateParkingLotDto {
     public double pricePerHour;
     public String name;
     public int maxCapacity;
-    public int contactPersonId;
+    public long contactPersonId;
     public String streetName;
     public String houseNumber;
-    public int cityID;
+    public long cityID;
     public String category;
-    public int divisionId;
+    public long divisionId;
 
     public double getPricePerHour() {
         return pricePerHour;
@@ -28,7 +28,7 @@ public class CreateParkingLotDto {
         return maxCapacity;
     }
 
-    public int getContactPersonId() {
+    public long getContactPersonId() {
         return contactPersonId;
     }
 
@@ -36,7 +36,7 @@ public class CreateParkingLotDto {
         return houseNumber;
     }{}
 
-    public int getCityID() {
+    public long getCityID() {
         return cityID;
     }
 
@@ -44,7 +44,21 @@ public class CreateParkingLotDto {
         return category;
     }
 
-    public int getDivisionId() {
+    public long getDivisionId() {
         return divisionId;
     }
+
+    public CreateParkingLotDto(double pricePerHour, String name, int maxCapacity, long contactPersonId, String streetName, String houseNumber, long cityID, String category, long divisionId) {
+        this.pricePerHour = pricePerHour;
+        this.name = name;
+        this.maxCapacity = maxCapacity;
+        this.contactPersonId = contactPersonId;
+        this.streetName = streetName;
+        this.houseNumber = houseNumber;
+        this.cityID = cityID;
+        this.category = category;
+        this.divisionId = divisionId;
+    }
+
+    public CreateParkingLotDto(){}
 }

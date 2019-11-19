@@ -3,6 +3,8 @@ package be.wailsharks.parkshark.api.parkinglot.dto;
 import be.wailsharks.parkshark.api.common.dto.ContactPersonDto;
 import be.wailsharks.parkshark.api.division.dto.DivisionDto;
 
+import java.util.Objects;
+
 
 public class ParkingLotDto {
     public long id;
@@ -114,5 +116,18 @@ public class ParkingLotDto {
     public ParkingLotDto setDivisionDto(DivisionDto divisionDto) {
         this.divisionDto = divisionDto;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ParkingLotDto that = (ParkingLotDto) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

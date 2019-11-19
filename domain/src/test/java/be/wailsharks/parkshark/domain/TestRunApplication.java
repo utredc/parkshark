@@ -1,9 +1,7 @@
-package be.wailsharks.parkshark.domain.division;
+package be.wailsharks.parkshark.domain;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication(scanBasePackages = "be.wailsharks.parkshark")
 //@EnableJpaRepositories(basePackages = "be.wailsharks.parkshark.domain")
