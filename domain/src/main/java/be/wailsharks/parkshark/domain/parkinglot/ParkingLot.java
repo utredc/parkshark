@@ -20,14 +20,14 @@ public class ParkingLot {
     @Column(name = "PRICE_PER_HOUR")
     private double pricePerHour;
 
-    @Column(name ="NAME")
+    @Column(name = "NAME")
     private String name;
 
     @Column(name = "MAX_CAPACITY")
     private int maxCapacity;
 
     @ManyToOne
-    @JoinColumn (name = "CONTACT_PERSON_ID")
+    @JoinColumn(name = "CONTACT_PERSON_ID")
     private ContactPerson contactPerson;
 
     @Embedded
@@ -42,6 +42,9 @@ public class ParkingLot {
     @ManyToOne
     private Division division;
 
+    @Column(name = "AMOUNT_OF_CARS_PARKED")
+    private int amountOfCarsParked;
+
     public ParkingLot() {
     }
 
@@ -53,6 +56,10 @@ public class ParkingLot {
         this.address = address;
         this.category = category;
         this.division = division;
+    }
+
+    public boolean isFull() {
+        return (amountOfCarsParked >= maxCapacity);
     }
 
     public long getId() {
@@ -98,5 +105,9 @@ public class ParkingLot {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public void addCar() {
+        amountOfCarsParked++;
     }
 }
