@@ -1,6 +1,7 @@
 package be.wailsharks.parkshark.service;
 
 
+import be.wailsharks.parkshark.domain.exceptions.NoMemberWithIdException;
 import be.wailsharks.parkshark.domain.members.Member;
 import be.wailsharks.parkshark.domain.members.MemberRepository;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,6 @@ public class MemberService {
     public Member getSpecificMember(Long id) {
         if (memberRepository.findById(id).isPresent()) {
             return memberRepository.findById(id).get();
-        } else throw new IllegalArgumentException("No member with this id");
+        } else throw new NoMemberWithIdException("No member with this id");
     }
 }
