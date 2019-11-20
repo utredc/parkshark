@@ -1,4 +1,4 @@
 package be.wailsharks.parkshark.domain.invoice;
 
-public enum Status {
+public enum InvoiceStatus {
 }

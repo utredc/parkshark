@@ -14,6 +14,6 @@ public class Invoice {
     private LocalDate paymentDate;
 
     private List<InvoiceItem> invoiceItems;
-    private Status status;
+    private InvoiceStatus status;
 
 }
