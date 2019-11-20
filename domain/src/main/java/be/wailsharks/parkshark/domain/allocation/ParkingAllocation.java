@@ -30,11 +30,29 @@ public class ParkingAllocation {
     @Column(name = "START_TIME")
     private LocalDateTime startTime;
 
+    @Column(name = "STOP_TIME")
+    private LocalDateTime stopTime;
+
+    @Column(name = "STATUS")
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
     public ParkingAllocation(Member member, String licensePlateNr, ParkingLot parkingLot) {
         this.member = member;
         this.licensePlateNr = licensePlateNr;
         this.parkingLot = parkingLot;
         this.startTime = LocalDateTime.now();
+        this.status = Status.ACTIVE;
+    }
+
+    public ParkingAllocation() {
+    }
+
+    public void stopParkingSpotAllocation() {
+        if (status.equals(Status.ACTIVE)) {
+            status = Status.STOPPED;
+            stopTime = LocalDateTime.now();
+        } else throw new IllegalArgumentException("parking allocation is already stopped");
     }
 
     public long getId() {
@@ -55,5 +73,13 @@ public class ParkingAllocation {
 
     public LocalDateTime getStartTime() {
         return startTime;
+    }
+
+    public LocalDateTime getStopTime() {
+        return stopTime;
+    }
+
+    public Status getStatus() {
+        return status;
     }
 }
