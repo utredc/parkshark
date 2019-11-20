@@ -1,21 +1,17 @@
 package be.wailsharks.parkshark.api.parkinglot;
 
-import be.wailsharks.parkshark.api.TestRunApplication;
-import be.wailsharks.parkshark.api.division.dto.DivisionDto;
+import be.wailsharks.parkshark.api.ControllerIntegrationTest;
 import be.wailsharks.parkshark.api.parkinglot.dto.CreateParkingLotDto;
 import be.wailsharks.parkshark.api.parkinglot.dto.ParkingLotDto;
-import be.wailsharks.parkshark.domain.common.*;
+import be.wailsharks.parkshark.domain.common.Address;
+import be.wailsharks.parkshark.domain.common.City;
+import be.wailsharks.parkshark.domain.common.ContactPerson;
+import be.wailsharks.parkshark.domain.common.Name;
 import be.wailsharks.parkshark.domain.division.Division;
-import be.wailsharks.parkshark.domain.division.DivisionRepository;
 import be.wailsharks.parkshark.domain.parkinglot.Category;
 import be.wailsharks.parkshark.domain.parkinglot.ParkingLot;
-import be.wailsharks.parkshark.domain.parkinglot.ParkingLotRepository;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
@@ -23,37 +19,8 @@ import java.util.List;
 
 import static io.restassured.http.ContentType.JSON;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = TestRunApplication.class)
-class ParkingLotControllerTest {
-
-    @LocalServerPort
-    private int port;
-
-    @Autowired
-    DivisionRepository divisionRepository;
-
-    @Autowired
-    ContactPersonRepository contactPersonRepository;
-
-    @Autowired
-    CityRepository cityRepository;
-
-    @Autowired
-    ParkingLotRepository parkingLotRepository;
-
-    @Autowired
-    ParkingLotMapper parkingLotMapper;
-
-    @BeforeEach
-    void setUp() {
-
-        parkingLotRepository.deleteAll();
-        divisionRepository.deleteAll();
-        contactPersonRepository.deleteAll();
-        cityRepository.deleteAll();
-    }
+class ParkingLotControllerTest extends ControllerIntegrationTest {
 
     @Test
     void getAllParkingLots() {
@@ -178,4 +145,6 @@ class ParkingLotControllerTest {
                 , "mobil"
                 , "phone")).getId();
     }
+
+
 }
