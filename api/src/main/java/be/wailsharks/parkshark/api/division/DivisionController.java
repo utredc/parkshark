@@ -51,4 +51,6 @@ public class DivisionController {
         return DivisionMapper.mapToDivisionDto(divisionService.getByID(id));
     }
 
+    //TODO add get division by name
+
 }

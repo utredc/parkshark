@@ -41,6 +41,26 @@ public class DivisionDto {
 		return this;
 	}
 
+	public long getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getOriginalName() {
+		return originalName;
+	}
+
+	public String getDirector() {
+		return director;
+	}
+
+	public Long getParentDivisionId() {
+		return parentDivisionId;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;

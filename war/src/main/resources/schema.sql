@@ -105,13 +105,15 @@ CREATE SEQUENCE PARKING_ALLOCATION_SEQ;
 
 
 INSERT INTO CITY (CITY_ID, POSTAL_CODE, NAME)
-VALUES (1, '1000', 'Brussel');
+VALUES (CITY_SEQ.NEXTVAL, '1000', 'Brussel');
 
 INSERT INTO CONTACT_PERSON (ID, FIRST_NAME, LAST_NAME, EMAIL, STREET_NAME, STREET_NUMBER, CITY_ID, MOBILE_NR, PHONE_NR)
-VALUES (1, 'Jimmy', 'VanPimperzele', 'jimmy@pimperzele.com', 'pimperzelestraat', '25a', 1, '02/53.32.32',
+VALUES (CONTACT_PERSON_SEQ.NEXTVAL, 'Jimmy', 'VanPimperzele', 'jimmy@pimperzele.com', 'pimperzelestraat', '25a', 1, '02/53.32.32',
         '052/254.36.36');
 
 INSERT INTO DIVISION (ID, NAME, ORIGINAL_NAME, DIRECTOR_NAME, PARENT_DIVISION_ID)
-values (1, 'Division One', null, 'The one', null)
+values (DIVISION_SEQ.NEXTVAL, 'Division One', null, 'Dirk Director', null);
+INSERT INTO DIVISION (ID, NAME, ORIGINAL_NAME, DIRECTOR_NAME, PARENT_DIVISION_ID)
+values (DIVISION_SEQ.NEXTVAL, 'Division Two', 'Old Name', 'Bas Baas', null)
 
 
