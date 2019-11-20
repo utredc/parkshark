@@ -3,6 +3,8 @@ package be.wailsharks.parkshark.api.allocation;
 import be.wailsharks.parkshark.api.allocation.dto.ParkingAllocationDto;
 import be.wailsharks.parkshark.api.allocation.dto.StartParkingAllocationDto;
 import be.wailsharks.parkshark.domain.allocation.ParkingAllocation;
+import be.wailsharks.parkshark.domain.exceptions.LicensePlateMissMatchException;
+import be.wailsharks.parkshark.domain.exceptions.ParkingLotFullException;
 import be.wailsharks.parkshark.domain.members.Member;
 import be.wailsharks.parkshark.domain.members.MembershipLevel;
 import be.wailsharks.parkshark.domain.parkinglot.ParkingLot;
@@ -27,12 +29,12 @@ public class ParkingAllocationMapper {
         Member parkingMember = memberService.getSpecificMember(startParkingAllocationDto.getMemberId());
         if (parkingMember.getMembershipLevel() != MembershipLevel.GOLD) {
             if (!startParkingAllocationDto.getLicensePlateNr().equals(parkingMember.getLicensePlate().getPlateNumber())) {
-                throw new IllegalArgumentException("Wrong car");
+                throw new LicensePlateMissMatchException("You need to park with your registered car.");
             }
         }
         ParkingLot parkingLot = parkingLotService.getByID(startParkingAllocationDto.getParkingLotId());
         if (parkingLot.isFull()) {
-            throw new IllegalStateException("Parking is vol");
+            throw new ParkingLotFullException("Parking lot is full, please wait or find another lot.");
         }
         return new ParkingAllocation(parkingMember, startParkingAllocationDto.licensePlateNr, parkingLot);
     }
