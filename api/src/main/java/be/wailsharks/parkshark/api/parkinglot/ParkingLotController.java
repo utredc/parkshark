@@ -40,6 +40,7 @@ public class ParkingLotController {
     }
 
     @GetMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public ParkingLotDto getParkingLotById(@PathVariable ("id") long id){
         return parkingLotMapper.mapToParkingLotDto(parkingLotService.getByID(id));
     }

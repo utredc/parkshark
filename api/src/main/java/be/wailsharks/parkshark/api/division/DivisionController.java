@@ -45,4 +45,10 @@ public class DivisionController {
                 .collect(Collectors.toList());
     }
 
+    @GetMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public DivisionDto getParkingLotById(@PathVariable ("id") long id){
+        return DivisionMapper.mapToDivisionDto(divisionService.getByID(id));
+    }
+
 }

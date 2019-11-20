@@ -31,4 +31,8 @@ public class DivisionService {
     public Division getDivisionById(long id) {
         return divisionRepository.findById(id).get();
     }
+
+    public Division getByID(long id) {
+        return divisionRepository.findById(id).get();
+    }
 }
