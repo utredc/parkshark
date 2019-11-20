@@ -12,7 +12,10 @@ public class ParkingAllocationDto {
 
     private String startTime;
 
-    public static ParkingAllocationDto DivisionDto() {
+    private String stopTime;
+    private String status;
+
+    public static ParkingAllocationDto ParkingAllocationDto() {
         return new ParkingAllocationDto();
     }
 
@@ -39,6 +42,24 @@ public class ParkingAllocationDto {
     public ParkingAllocationDto setStartTime(String startTime) {
         this.startTime = startTime;
         return this;
+    }
+
+    public ParkingAllocationDto setStopTime(String stopTime) {
+        this.stopTime = stopTime;
+        return this;
+    }
+
+    public ParkingAllocationDto setStatus(String status) {
+        this.status = status;
+        return this;
+    }
+
+    public String getStopTime() {
+        return stopTime;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     public long getId() {

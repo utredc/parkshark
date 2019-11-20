@@ -2,6 +2,7 @@ package be.wailsharks.parkshark.api.allocation;
 
 import be.wailsharks.parkshark.api.allocation.dto.ParkingAllocationDto;
 import be.wailsharks.parkshark.api.allocation.dto.StartParkingAllocationDto;
+import be.wailsharks.parkshark.api.allocation.dto.StopParkingAllocationDto;
 import be.wailsharks.parkshark.service.allocation.ParkingAllocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,5 +29,12 @@ public class ParkingAllocationController {
         return ParkingAllocationMapper.mapToDto(
                 parkingAllocationService.startParkingAllocation(
                         parkingAllocationMapper.mapToDomain(startParkingAllocationDto)));
+    }
+
+    @PutMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
+    public ParkingAllocationDto stopParkingAllocation(@RequestBody StopParkingAllocationDto stopParkingAllocationDto) {
+        return ParkingAllocationMapper.mapStoppedToDto(
+                parkingAllocationService.stopParkingAllocation(stopParkingAllocationDto.getMemberId(), stopParkingAllocationDto.getAllocationId()));
     }
 }

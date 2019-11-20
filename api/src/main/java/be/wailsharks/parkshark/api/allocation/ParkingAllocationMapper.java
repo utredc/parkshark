@@ -39,12 +39,24 @@ public class ParkingAllocationMapper {
         return new ParkingAllocation(parkingMember, startParkingAllocationDto.licensePlateNr, parkingLot);
     }
 
+    public static ParkingAllocationDto mapStoppedToDto(ParkingAllocation parkingAllocation) {
+        return new ParkingAllocationDto()
+                .setId(parkingAllocation.getId())
+                .setMemberId(parkingAllocation.getMember().getId())
+                .setLicensePlateNumber(parkingAllocation.getLicensePlateNr())
+                .setParkingLotId(parkingAllocation.getParkingLot().getId())
+                .setStartTime(parkingAllocation.getStartTime().toString())
+                .setStopTime(parkingAllocation.getStopTime().toString())
+                .setStatus(parkingAllocation.getStatus().name());
+    }
+
     public static ParkingAllocationDto mapToDto(ParkingAllocation parkingAllocation) {
         return new ParkingAllocationDto()
                 .setId(parkingAllocation.getId())
                 .setMemberId(parkingAllocation.getMember().getId())
                 .setLicensePlateNumber(parkingAllocation.getLicensePlateNr())
                 .setParkingLotId(parkingAllocation.getParkingLot().getId())
-                .setStartTime(parkingAllocation.getStartTime().toString());
+                .setStartTime(parkingAllocation.getStartTime().toString())
+                .setStatus(parkingAllocation.getStatus().toString());
     }
 }

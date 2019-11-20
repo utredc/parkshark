@@ -25,4 +25,19 @@ public class ParkingAllocationService {
         return parkingAllocation;
     }
 
+    public ParkingAllocation getParkingAllocationById(Long allocationId) {
+        if (parkingAllocationRepository.existsById(allocationId)) {
+            return parkingAllocationRepository.findById(allocationId).get();
+        }
+        throw new IllegalArgumentException("No allocation with this id");
+    }
+
+    public ParkingAllocation stopParkingAllocation(String memberId, String allocationId) {
+        ParkingAllocation allocation = getParkingAllocationById(Long.parseLong(allocationId));
+        if (allocation.getMember().getId() != Long.parseLong(memberId)) {
+            throw new IllegalArgumentException("Member does not own this allocation");
+        }
+        allocation.stopParkingSpotAllocation();
+        return allocation;
+    }
 }
