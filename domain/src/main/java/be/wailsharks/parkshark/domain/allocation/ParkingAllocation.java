@@ -30,11 +30,15 @@ public class ParkingAllocation {
     @Column(name = "START_TIME")
     private LocalDateTime startTime;
 
+    @Column(name = "STATUS")
+    private String status;
+
     public ParkingAllocation(Member member, String licensePlateNr, ParkingLot parkingLot) {
         this.member = member;
         this.licensePlateNr = licensePlateNr;
         this.parkingLot = parkingLot;
         this.startTime = LocalDateTime.now();
+        this.status = "active";
     }
 
     public long getId() {
