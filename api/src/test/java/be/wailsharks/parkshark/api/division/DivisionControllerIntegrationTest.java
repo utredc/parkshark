@@ -1,5 +1,6 @@
 package be.wailsharks.parkshark.api.division;
 
+import be.wailsharks.parkshark.api.ControllerIntegrationTest;
 import be.wailsharks.parkshark.api.TestRunApplication;
 import be.wailsharks.parkshark.api.division.dto.CreateDivisionDto;
 import be.wailsharks.parkshark.api.division.dto.DivisionDto;
@@ -19,21 +20,8 @@ import java.util.List;
 import static io.restassured.http.ContentType.JSON;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = TestRunApplication.class)
-class DivisionControllerIntegrationTest {
-
-    @LocalServerPort
-    private int port;
-
-    @Autowired
-    DivisionRepository divisionRepository;
-
+class DivisionControllerIntegrationTest  extends ControllerIntegrationTest {
     private Division testDivision1, testDivision2;
-
-    @BeforeEach
-    void setUp() {
-        divisionRepository.deleteAll();
-    }
 
     @Test
     void getAllDivisions() {
@@ -87,6 +75,31 @@ class DivisionControllerIntegrationTest {
         assertThat(divisionDto.name).isEqualTo(createDivisionDto.name);
         assertThat(divisionDto.originalName).isEqualTo(createDivisionDto.originalName);
         assertThat(divisionDto.director).isEqualTo(createDivisionDto.director);
+    }
+
+    @Test
+    void getASingleDivision() {
+
+        testDivision1 = new Division("testDivision", "oldName", "directorName");
+
+        divisionRepository.save(testDivision1);
+
+        DivisionDto divisionDto = RestAssured
+                .given()
+                .accept(JSON)
+                .contentType(JSON)
+                .when()
+                .port(port)
+                .get("/divisions/" + testDivision1.getId())
+                .then()
+                .assertThat()
+                .statusCode(HttpStatus.OK.value())
+                .extract()
+                .body()
+                .jsonPath()
+                .getObject(".", DivisionDto.class);
+
+        assertThat(divisionDto).isEqualTo(DivisionMapper.mapToDivisionDto(testDivision1));
     }
 
 }

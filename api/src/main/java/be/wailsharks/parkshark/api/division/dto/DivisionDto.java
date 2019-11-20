@@ -2,6 +2,8 @@ package be.wailsharks.parkshark.api.division.dto;
 
 import be.wailsharks.parkshark.domain.division.Division;
 
+import java.util.Objects;
+
 public class DivisionDto {
 
 	public long id;
@@ -39,4 +41,20 @@ public class DivisionDto {
 		return this;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		DivisionDto that = (DivisionDto) o;
+		return id == that.id &&
+				Objects.equals(name, that.name) &&
+				Objects.equals(originalName, that.originalName) &&
+				Objects.equals(director, that.director) &&
+				Objects.equals(parentDivisionId, that.parentDivisionId);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name, originalName, director, parentDivisionId);
+	}
 }
