@@ -78,23 +78,33 @@ public class DivisionsView extends Div implements AfterNavigationObserver {
         cancel.addClickListener(e -> clearFields());
 
         save.addClickListener(e -> {
-            try {
-                controller.createDivision(new CreateDivisionDto(name.getValue(),
-                        originalName.getValue(),
-                        director.getValue()
-                        //,parentDivisionComboBox.getValue()
-                ));
-                refreshGridList();
-                clearFields();
-            } catch (Exception ex) {
-                Notification.show("You did something wrong...\n Try again!");
-            }
+            createDivision(controller);
+            refreshGridList();
+            clearFields();
         });
+
         SplitLayout splitLayout = new SplitLayout();
         splitLayout.setSizeFull();
         createGridLayout(splitLayout);
         createEditorLayout(splitLayout);
         add(splitLayout);
+    }
+
+    private void createDivision(@Autowired DivisionController controller) {
+        try {
+            if(parentDivisionComboBox.isEmpty()){
+                controller.createDivision(new CreateDivisionDto(name.getValue(),
+                        originalName.getValue(),
+                        director.getValue()));
+            } else {
+            controller.createDivision(new CreateDivisionDto(name.getValue(),
+                    originalName.getValue(),
+                    director.getValue(),
+                    controller.getDivisionByName(parentDivisionComboBox.getValue()).id
+            ));}
+        } catch (Exception ex) {
+            Notification.show("You did something wrong...\n Try again!");
+        }
     }
 
     private void refreshGridList() {

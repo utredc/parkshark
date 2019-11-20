@@ -51,6 +51,9 @@ public class DivisionController {
         return DivisionMapper.mapToDivisionDto(divisionService.getByID(id));
     }
 
-    //TODO add get division by name
-
+    @GetMapping(path = "/{name}", produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public DivisionDto getDivisionByName(@PathVariable ("name") String name) {
+        return DivisionMapper.mapToDivisionDto(divisionService.getByName(name));
+    }
 }

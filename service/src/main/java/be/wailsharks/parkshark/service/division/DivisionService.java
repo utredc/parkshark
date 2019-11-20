@@ -35,4 +35,8 @@ public class DivisionService {
     public Division getByID(long id) {
         return divisionRepository.findById(id).get();
     }
+
+	public Division getByName(String name) {
+        return divisionRepository.findByName(name);
+	}
 }
