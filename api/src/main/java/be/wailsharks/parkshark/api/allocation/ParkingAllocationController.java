@@ -1,13 +1,18 @@
 package be.wailsharks.parkshark.api.allocation;
 
+import be.wailsharks.parkshark.api.allocation.dto.GetParkingAllocationFilterDto;
 import be.wailsharks.parkshark.api.allocation.dto.ParkingAllocationDto;
 import be.wailsharks.parkshark.api.allocation.dto.StartParkingAllocationDto;
 import be.wailsharks.parkshark.api.allocation.dto.StopParkingAllocationDto;
+import be.wailsharks.parkshark.domain.allocation.ParkingAllocation;
 import be.wailsharks.parkshark.service.allocation.ParkingAllocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/allocation")
@@ -36,5 +41,14 @@ public class ParkingAllocationController {
     public ParkingAllocationDto stopParkingAllocation(@RequestBody StopParkingAllocationDto stopParkingAllocationDto) {
         return ParkingAllocationMapper.mapStoppedToDto(
                 parkingAllocationService.stopParkingAllocation(stopParkingAllocationDto.getMemberId(), stopParkingAllocationDto.getAllocationId()));
+    }
+
+    @GetMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public List<ParkingAllocationDto> getAllParkingAllocations(@RequestBody GetParkingAllocationFilterDto getParkingAllocationFilterDto) {
+        List<ParkingAllocation> resultList = parkingAllocationService.getAllParkingAllocations(getParkingAllocationFilterDto.getStatus(), getParkingAllocationFilterDto.getAmount());
+        return resultList.stream()
+                .map(ParkingAllocationMapper::mapToDto)
+                .collect(Collectors.toList());
     }
 }
