@@ -22,23 +22,25 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.stream.Stream;
-
 @Route(value = "division", layout = MainView.class)
 @RouteAlias(value = "", layout = MainView.class)
 @PageTitle("ParkShark - Divisions")
 @CssImport("styles/views/divisions/divisions-view.css")
 public class DivisionsView extends Div implements AfterNavigationObserver {
 
-    private DivisionController controller;
+    private DivisionController divisionController;
 
     private Grid<DivisionDto> divisionsGrid;
 
     private H2 createDivisionTitle = new H2("Add new division");
 
-    private TextField name = new TextField();
-    private TextField originalName = new TextField();
-    private TextField director = new TextField();
+//    @Id("name")
+    private TextField nameField = new TextField();
+//    @Id("originalName")
+    private TextField originalNameField = new TextField();
+//    @Id("director")
+    private TextField directorField = new TextField();
+//    @Id("parentDivisionId")
     private ComboBox<String> parentDivisionComboBox = new ComboBox<>();
 
     private Button cancel = new Button("Cancel");
@@ -48,41 +50,43 @@ public class DivisionsView extends Div implements AfterNavigationObserver {
 
     /**
      * Autowiring has to be done on parameter when you want to be able to use the bean in the constructor
-     * @param controller
+     * @param divisionController
      * @link https://vaadin.com/forum/thread/17779205/vaadin-flow-spring-boot-using-autowired-in-components
      */
-    public DivisionsView(@Autowired DivisionController controller) {
-        this.controller = controller;
+
+//
+//    // Create a grid bound to the list
+//    Grid<Person> grid = new Grid<>();
+//grid.setItems(people);
+//grid.addColumn(Person::getName).setHeader("Name");
+//grid.addColumn(person -> Integer.toString(person.getYearOfBirth()))
+//            .setHeader("Year of birth");
+//
+//layout.add(grid);
+
+    public DivisionsView(@Autowired DivisionController divisionController) {
+        this.divisionController = divisionController;
         setId("divisions-view");
+        this.divisionsGrid = new Grid<>(DivisionDto.class);
+        add(divisionsGrid);
+        listDivisions();
         // Configure Grid
-        divisionsGrid = new Grid<>();
         divisionsGrid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
         divisionsGrid.setHeightFull();
-        divisionsGrid.addColumn(DivisionDto::getId).setHeader("ID");
-        divisionsGrid.addColumn(DivisionDto::getName).setHeader("Name");
-        divisionsGrid.addColumn(DivisionDto::getOriginalName).setHeader("Original Name");
-        divisionsGrid.addColumn(DivisionDto::getDirector).setHeader("Director");
-        divisionsGrid.addColumn(DivisionDto::getParentDivisionId).setHeader("Parent Division ID");
         //when a row is selected or deselected, populate form
         divisionsGrid.asSingleSelect().addValueChangeListener(event -> populateForm(event.getValue()));
         // Configure Form
         binder = new Binder<>(DivisionDto.class);
-
         // Bind fields. This where you'd define e.g. validation rules
 //        binder.bindInstanceFields(this);
-        // note that password field isn't bound since that property doesn't exist in
-        // DivisionDto
-
-        // the grid valueChangeEvent will clear the form too
 //        cancel.addClickListener(e -> divisions.asSingleSelect().clear());
         cancel.addClickListener(e -> clearFields());
 
         save.addClickListener(e -> {
-            createDivision(controller);
+            createDivision(divisionController);
             refreshGridList();
             clearFields();
         });
-
         SplitLayout splitLayout = new SplitLayout();
         splitLayout.setSizeFull();
         createGridLayout(splitLayout);
@@ -90,16 +94,21 @@ public class DivisionsView extends Div implements AfterNavigationObserver {
         add(splitLayout);
     }
 
+    private void listDivisions() {
+        divisionsGrid.setColumns("id", "name", "originalName", "director", "parentDivisionId");
+        divisionsGrid.setItems(divisionController.getAllDivisions());
+    }
+
     private void createDivision(@Autowired DivisionController controller) {
         try {
             if(parentDivisionComboBox.isEmpty()){
-                controller.createDivision(new CreateDivisionDto(name.getValue(),
-                        originalName.getValue(),
-                        director.getValue()));
+                controller.createDivision(new CreateDivisionDto(nameField.getValue(),
+                        originalNameField.getValue(),
+                        directorField.getValue()));
             } else {
-            controller.createDivision(new CreateDivisionDto(name.getValue(),
-                    originalName.getValue(),
-                    director.getValue(),
+            controller.createDivision(new CreateDivisionDto(nameField.getValue(),
+                    originalNameField.getValue(),
+                    directorField.getValue(),
                     controller.getDivisionByName(parentDivisionComboBox.getValue()).id
             ));}
         } catch (Exception ex) {
@@ -108,7 +117,7 @@ public class DivisionsView extends Div implements AfterNavigationObserver {
     }
 
     private void refreshGridList() {
-        divisionsGrid.setItems(controller.getAllDivisions());
+        divisionsGrid.setItems(divisionController.getAllDivisions());
     }
 
     private void createEditorLayout(SplitLayout splitLayout) {
@@ -116,11 +125,17 @@ public class DivisionsView extends Div implements AfterNavigationObserver {
         editorDiv.setId("editor-layout");
         FormLayout formLayout = new FormLayout();
         editorDiv.add(createDivisionTitle);
-        parentDivisionComboBox.setItems(controller.getAllDivisions().stream().map(DivisionDto::getName));
+        parentDivisionComboBox.setItems(divisionController.getAllDivisions().stream().map(DivisionDto::getName));
+        nameField.setRequired(true);
+        nameField.setPlaceholder("Name");
+        nameField.setRequiredIndicatorVisible(true);
 
-        addFormItem(editorDiv, formLayout, name, "Name");
-        addFormItem(editorDiv, formLayout, originalName, "Original Name");
-        addFormItem(editorDiv, formLayout, director, "Director");
+        directorField.setRequired(true);
+        directorField.setPlaceholder("Director");
+        directorField.setRequiredIndicatorVisible(true);
+        addFormItem(editorDiv, formLayout, nameField, "Name*");
+        addFormItem(editorDiv, formLayout, originalNameField, "Original Name");
+        addFormItem(editorDiv, formLayout, directorField, "Director*");
         addFormItem(editorDiv, formLayout, parentDivisionComboBox, "Parent Division");
         createButtonLayout(editorDiv);
         splitLayout.addToSecondary(editorDiv);
@@ -153,25 +168,21 @@ public class DivisionsView extends Div implements AfterNavigationObserver {
     }
 
     private void clearFields() {
-        name.setValue("");
-        originalName.setValue("");
-        director.setValue("");
-        parentDivisionComboBox.setItems(controller.getAllDivisions().stream().map(DivisionDto::getName));
+        nameField.setValue("");
+        originalNameField.setValue("");
+        directorField.setValue("");
+        parentDivisionComboBox.setItems(divisionController.getAllDivisions().stream().map(DivisionDto::getName));
     }
 
     @Override
     public void afterNavigation(AfterNavigationEvent event) {
-        // Lazy init of the grid items, happens only when we are sure the view will be
-        // shown to the user
+        // Lazy init of the grid items, happens only when we are sure the view will be shown to the user
         refreshGridList();
     }
 
-    private void populateForm(DivisionDto value) {
+    private void populateForm(DivisionDto divisionDto) {
         // Value can be null as well, that clears the form
-        binder.readBean(value);
-
-        // The password field isn't bound through the binder, so handle that
-//        password.setValue("");
+        binder.readBean(divisionDto);
     }
 
 }

@@ -8,6 +8,7 @@
         <module>api</module>
         <module>service</module>
         <module>war</module>
+        <module>userinterface</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

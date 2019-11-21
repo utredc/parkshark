@@ -60,7 +60,8 @@ html {
     <style>
       [part="navbar"] {
         align-items: center;
-        justify-content: center;
+        justify-content: left;
+        padding-left: 5px;
       }
     </style>
   </template>

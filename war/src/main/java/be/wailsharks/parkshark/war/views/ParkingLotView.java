@@ -1,7 +1,6 @@
 package be.wailsharks.parkshark.war.views;
 
 import be.wailsharks.parkshark.api.parkinglot.ParkingLotController;
-import be.wailsharks.parkshark.api.division.dto.DivisionDto;
 import be.wailsharks.parkshark.api.parkinglot.dto.ParkingLotDto;
 import be.wailsharks.parkshark.war.MainView;
 import com.vaadin.flow.component.dependency.CssImport;
