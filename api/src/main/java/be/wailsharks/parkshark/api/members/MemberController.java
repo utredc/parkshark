@@ -47,7 +47,7 @@ public class MemberController {
 
     @GetMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public MemberDto getSpecificMember(@PathVariable("id") Long id) {
+    public MemberDto getSpecificMember(@PathVariable("id") long id) {
         Member result =  memberService.getSpecificMember(id);
         return MemberMapper.convertMemberToDto(result);
     }

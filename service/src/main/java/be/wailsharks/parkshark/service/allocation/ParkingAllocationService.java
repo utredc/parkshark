@@ -6,6 +6,7 @@ import be.wailsharks.parkshark.domain.allocation.Status;
 import be.wailsharks.parkshark.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,7 @@ public class ParkingAllocationService {
         throw new IllegalArgumentException("No allocation with this id");
     }
 
+    @Transactional
     public ParkingAllocation stopParkingAllocation(String memberId, String allocationId) {
         ParkingAllocation allocation = getParkingAllocationById(Long.parseLong(allocationId));
         if (allocation.getMember().getId() != Long.parseLong(memberId)) {

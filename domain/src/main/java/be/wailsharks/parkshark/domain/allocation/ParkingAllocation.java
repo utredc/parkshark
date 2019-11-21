@@ -5,10 +5,13 @@ import be.wailsharks.parkshark.domain.parkinglot.ParkingLot;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Entity
 @Table(name = "PARKING_ALLOCATION")
 public class ParkingAllocation {
+
+    public static final double FINE_PER_HOUR_IF_PARKED_TOO_LONG = 2.5;
 
     @Id
     @SequenceGenerator(name = "parking_allocation_seq_gen", sequenceName = "PARKING_ALLOCATION_SEQ", allocationSize = 1)
@@ -45,14 +48,27 @@ public class ParkingAllocation {
         this.status = Status.ACTIVE;
     }
 
+    public ParkingAllocation(Member member, String licensePlateNr, ParkingLot parkingLot, LocalDateTime startTime, LocalDateTime stopTime, Status status) {
+        this.member = member;
+        this.licensePlateNr = licensePlateNr;
+        this.parkingLot = parkingLot;
+        this.startTime = startTime;
+        this.stopTime = stopTime;
+        this.status = status;
+    }
+
     public ParkingAllocation() {
+        this.startTime = LocalDateTime.now();
+        this.status = Status.ACTIVE;
     }
 
     public void stopParkingSpotAllocation() {
-        if (status.equals(Status.ACTIVE)) {
-            status = Status.STOPPED;
-            stopTime = LocalDateTime.now();
-        } else throw new IllegalArgumentException("parking allocation is already stopped");
+        if (!status.equals(Status.ACTIVE)) {
+            throw new IllegalArgumentException("parking allocation is already stopped");
+        }
+        status = Status.STOPPED;
+        parkingLot.releaseParkingSpot();
+        stopTime = LocalDateTime.now();
     }
 
     public long getId() {
@@ -61,6 +77,10 @@ public class ParkingAllocation {
 
     public Member getMember() {
         return member;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public String getLicensePlateNr() {
@@ -81,5 +101,30 @@ public class ParkingAllocation {
 
     public Status getStatus() {
         return status;
+    }
+
+    public double calculatePrice() {
+
+        return getBasePriceToPay() + getFineIfParkedTooLong();
+    }
+
+    private double getFineIfParkedTooLong() {
+        if (!parkedTooLong()){
+            return 0;
+        }
+        return ( calculateParkedHours() - member.getMembershipLevel().getMaxAllowedTime()) * FINE_PER_HOUR_IF_PARKED_TOO_LONG;
+    }
+
+    private boolean parkedTooLong() {
+        return calculateParkedHours() > member.getMembershipLevel().getMaxAllowedTime();
+    }
+
+    private double getBasePriceToPay() {
+        return calculateParkedHours() * parkingLot.getPricePerHour() * member.getMembershipLevel().getAllocationReduction();
+    }
+
+    private int calculateParkedHours() {
+        double diffInMinutes = ChronoUnit.MINUTES.between(startTime,stopTime);
+        return (int) Math.ceil(diffInMinutes/60);
     }
 }

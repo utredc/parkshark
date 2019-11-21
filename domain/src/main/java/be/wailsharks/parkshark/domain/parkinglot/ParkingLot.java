@@ -34,7 +34,7 @@ public class ParkingLot {
     private Address address;
 
     @Column(name = "CATEGORY")
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Category category;
 
 
@@ -110,4 +110,10 @@ public class ParkingLot {
     public void addCar() {
         amountOfCarsParked++;
     }
+
+    public void releaseParkingSpot() {
+        amountOfCarsParked--;
+    }
+
+
 }
