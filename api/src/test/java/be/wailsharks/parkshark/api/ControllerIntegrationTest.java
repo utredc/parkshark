@@ -2,9 +2,11 @@ package be.wailsharks.parkshark.api;
 
 
 import be.wailsharks.parkshark.api.parkinglot.ParkingLotMapper;
+import be.wailsharks.parkshark.domain.allocation.ParkingAllocationRepository;
 import be.wailsharks.parkshark.domain.common.CityRepository;
 import be.wailsharks.parkshark.domain.common.ContactPersonRepository;
 import be.wailsharks.parkshark.domain.division.DivisionRepository;
+import be.wailsharks.parkshark.domain.members.MemberRepository;
 import be.wailsharks.parkshark.domain.parkinglot.ParkingLotRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,12 @@ public abstract class ControllerIntegrationTest {
 
     @Autowired
     public ParkingLotMapper parkingLotMapper;
+
+    @Autowired
+    public ParkingAllocationRepository parkingAllocationRepository;
+
+    @Autowired
+    public MemberRepository memberRepository;
 
     @BeforeEach
     void setUp() {

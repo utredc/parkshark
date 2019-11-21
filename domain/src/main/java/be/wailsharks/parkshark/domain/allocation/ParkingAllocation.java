@@ -46,6 +46,8 @@ public class ParkingAllocation {
     }
 
     public ParkingAllocation() {
+        this.startTime = LocalDateTime.now();
+        this.status = Status.ACTIVE;
     }
 
     public void stopParkingSpotAllocation() {
@@ -61,6 +63,10 @@ public class ParkingAllocation {
 
     public Member getMember() {
         return member;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public String getLicensePlateNr() {
