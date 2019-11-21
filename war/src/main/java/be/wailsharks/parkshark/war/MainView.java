@@ -1,6 +1,7 @@
 package be.wailsharks.parkshark.war;
 
 import be.wailsharks.parkshark.war.views.DivisionsView;
+import be.wailsharks.parkshark.war.views.HomeView;
 import be.wailsharks.parkshark.war.views.MembersView;
 import be.wailsharks.parkshark.war.views.ParkingLotView;
 import com.vaadin.flow.component.Component;
@@ -14,10 +15,12 @@ import com.vaadin.flow.component.html.Header;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.page.Viewport;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.TabVariant;
 import com.vaadin.flow.component.tabs.Tabs;
+import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.PWA;
@@ -31,7 +34,6 @@ import java.util.Optional;
 
 import static com.vaadin.flow.component.icon.VaadinIcon.OFFICE;
 
-//@Route(value = "main")
 @JsModule("./styles/shared-styles.js")
 @Viewport("width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes, viewport-fit=cover")
 @PWA(name = "parkshark", shortName = "parkshark")
@@ -42,6 +44,7 @@ public class MainView extends AppLayout {
     public static final String PARKING_LOTS_TITLE = "Parking Lots";
     public static final String MEMBERS_TITLE = "Members";
     private final Tabs menu;
+    private VerticalLayout mainLayout;
 
     public MainView() {
         new Header(new H1("ParkShark Header"));
@@ -66,6 +69,7 @@ public class MainView extends AppLayout {
 
     private static Tab[] getAvailableTabs() {
         final List<Tab> tabs = new ArrayList<>();
+        tabs.add(createTab(VaadinIcon.HOME, "Home", HomeView.class));
         tabs.add(createTab(VaadinIcon.OFFICE, DIVISIONS_TITLE, DivisionsView.class));
         tabs.add(createTab(VaadinIcon.CAR, PARKING_LOTS_TITLE, ParkingLotView.class));
         tabs.add(createTab(VaadinIcon.USERS, MEMBERS_TITLE, MembersView.class));

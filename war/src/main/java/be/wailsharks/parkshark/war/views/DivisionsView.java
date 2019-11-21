@@ -31,7 +31,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Route(value = "division", layout = MainView.class)
-@RouteAlias(value = "", layout = MainView.class)
 @PageTitle("ParkShark - Divisions")
 @CssImport("styles/views/divisions/divisions-view.css")
 public class DivisionsView extends Div implements AfterNavigationObserver {
@@ -42,13 +41,9 @@ public class DivisionsView extends Div implements AfterNavigationObserver {
 
     private H2 createDivisionTitle = new H2("Add new division");
 
-    //    @Id("name")
     private TextField nameField = new TextField();
-    //    @Id("originalName")
     private TextField originalNameField = new TextField();
-    //    @Id("director")
     private TextField directorField = new TextField();
-    //    @Id("parentDivisionId")
     private ComboBox<String> parentDivisionComboBox = new ComboBox<>();
 
     private Button cancel = new Button("Cancel");
@@ -169,10 +164,7 @@ public class DivisionsView extends Div implements AfterNavigationObserver {
 //        addFormItem(editorDiv, formLayout, originalNameField, "Original Name");
 //        addFormItem(editorDiv, formLayout, directorField, "Director*");
 //        addFormItem(editorDiv, formLayout, parentDivisionComboBox, "Parent Division");
-        editorDiv.add(nameField);
-        editorDiv.add(originalNameField);
-        editorDiv.add(directorField);
-        editorDiv.add(parentDivisionComboBox);
+        editorDiv.add(nameField, originalNameField, directorField, parentDivisionComboBox);
         createButtonLayout(editorDiv);
         splitLayout.addToSecondary(editorDiv);
     }

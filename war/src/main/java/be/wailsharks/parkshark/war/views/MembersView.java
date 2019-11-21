@@ -2,6 +2,7 @@ package be.wailsharks.parkshark.war.views;
 
 import be.wailsharks.parkshark.api.members.MemberController;
 import be.wailsharks.parkshark.api.members.dto.BasicMemberInfoDto;
+import be.wailsharks.parkshark.api.members.dto.MemberDto;
 import be.wailsharks.parkshark.war.MainView;
 import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.button.Button;
@@ -59,16 +60,13 @@ public class MembersView extends Div implements AfterNavigationObserver {
      */
     public MembersView(@Autowired MemberController controller) {
         this.memberController = controller;
-        setId("members-view");
+        setId("divisions-view");
+        this.membersGrid = new Grid<>(BasicMemberInfoDto.class);
+        add(membersGrid);
+        listDivisions();
         // Configure Grid
-        membersGrid = new Grid<>();
         membersGrid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
         membersGrid.setHeightFull();
-        membersGrid.addColumn(BasicMemberInfoDto::getId).setHeader("ID");
-        membersGrid.addColumn(BasicMemberInfoDto::getFirstName).setHeader("First Name");
-        membersGrid.addColumn(BasicMemberInfoDto::getLastName).setHeader("Last Name");
-        membersGrid.addColumn(BasicMemberInfoDto::getLicensePlateNr).setHeader("License Plate");
-        membersGrid.addColumn(BasicMemberInfoDto::getTelephoneNr).setHeader("Telephone Nr");
         //when a row is selected or deselected, populate form
         membersGrid.asSingleSelect().addValueChangeListener(event -> populateForm(event.getValue()));
         // Configure Form
@@ -95,6 +93,10 @@ public class MembersView extends Div implements AfterNavigationObserver {
         createEditorLayout(splitLayout);
         add(splitLayout);
     }
+    private void listDivisions() {
+        membersGrid.setColumns("id", "firstName", "lastName", "licensePlateNr", "emailAddress","registrationDate");
+        membersGrid.setItems(memberController.getAllMembers());
+    }
 
     private void createMember(@Autowired MemberController controller) {
         try {
@@ -118,16 +120,16 @@ public class MembersView extends Div implements AfterNavigationObserver {
         membershipLevel.setItems("Bronze", "Silver", "Gold");
         membershipLevel.setAllowCustomValue(false);
         membershipLevel.setValue("Bronze");
-
-        addFormItem(editorDiv, formLayout, firstName, "First Name");
-        addFormItem(editorDiv, formLayout, lastName, "Last Name");
-        addFormItem(editorDiv, formLayout, licensePlateNr, "License Plate Nr");
-        addFormItem(editorDiv, formLayout, licensePlateCountry, "License Plate Country");
-        addFormItem(editorDiv, formLayout, telephoneNr, "Telephone Nr");
-        addFormItem(editorDiv, formLayout, emailAddress, "Email Address");
-        addFormItem(editorDiv, formLayout, streetName, "Street Name");
-        addFormItem(editorDiv, formLayout, streetNumber, "Street Number");
-        addFormItem(editorDiv, formLayout, membershipLevel, "Membership Level");
+        editorDiv.add(firstName, lastName, licensePlateNr,licensePlateCountry,telephoneNr,emailAddress,streetName,streetNumber,membershipLevel);
+//        addFormItem(editorDiv, formLayout, firstName, "First Name")
+//        addFormItem(editorDiv, formLayout, lastName, "Last Name");
+//        addFormItem(editorDiv, formLayout, licensePlateNr, "License Plate Nr");
+//        addFormItem(editorDiv, formLayout, licensePlateCountry, "License Plate Country");
+//        addFormItem(editorDiv, formLayout, telephoneNr, "Telephone Nr");
+//        addFormItem(editorDiv, formLayout, emailAddress, "Email Address");
+//        addFormItem(editorDiv, formLayout, streetName, "Street Name");
+//        addFormItem(editorDiv, formLayout, streetNumber, "Street Number");
+//        addFormItem(editorDiv, formLayout, membershipLevel, "Membership Level");
         createButtonLayout(editorDiv);
         splitLayout.addToSecondary(editorDiv);
     }
