@@ -20,7 +20,7 @@ public class ParkingLotView extends Div implements AfterNavigationObserver {
         this.parkingLotController = divisionService;
         this.grid = new Grid<>(ParkingLotDto.class);
         add(grid);
-        listDivisions();
+        listParkingLots();
     }
 
 //    id;
@@ -35,7 +35,7 @@ public class ParkingLotView extends Div implements AfterNavigationObserver {
 //    public String category;
 //    public DivisionDto divisionDto
 
-    private void listDivisions() {
+    private void listParkingLots() {
         grid.setColumns("id", "name", "streetName", "city", "category", "pricePerHour");
         grid.setItems(parkingLotController.getAllParkingLots());
     }

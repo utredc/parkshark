@@ -13,14 +13,22 @@ import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.Footer;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.splitlayout.SplitLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.textfield.TextFieldVariant;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.binder.BinderValidationStatus;
+import com.vaadin.flow.data.binder.BindingValidationStatus;
+import com.vaadin.flow.data.validator.StringLengthValidator;
 import com.vaadin.flow.router.*;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Route(value = "division", layout = MainView.class)
 @RouteAlias(value = "", layout = MainView.class)
@@ -34,13 +42,13 @@ public class DivisionsView extends Div implements AfterNavigationObserver {
 
     private H2 createDivisionTitle = new H2("Add new division");
 
-//    @Id("name")
+    //    @Id("name")
     private TextField nameField = new TextField();
-//    @Id("originalName")
+    //    @Id("originalName")
     private TextField originalNameField = new TextField();
-//    @Id("director")
+    //    @Id("director")
     private TextField directorField = new TextField();
-//    @Id("parentDivisionId")
+    //    @Id("parentDivisionId")
     private ComboBox<String> parentDivisionComboBox = new ComboBox<>();
 
     private Button cancel = new Button("Cancel");
@@ -50,20 +58,10 @@ public class DivisionsView extends Div implements AfterNavigationObserver {
 
     /**
      * Autowiring has to be done on parameter when you want to be able to use the bean in the constructor
+     *
      * @param divisionController
      * @link https://vaadin.com/forum/thread/17779205/vaadin-flow-spring-boot-using-autowired-in-components
      */
-
-//
-//    // Create a grid bound to the list
-//    Grid<Person> grid = new Grid<>();
-//grid.setItems(people);
-//grid.addColumn(Person::getName).setHeader("Name");
-//grid.addColumn(person -> Integer.toString(person.getYearOfBirth()))
-//            .setHeader("Year of birth");
-//
-//layout.add(grid);
-
     public DivisionsView(@Autowired DivisionController divisionController) {
         this.divisionController = divisionController;
         setId("divisions-view");
@@ -77,15 +75,40 @@ public class DivisionsView extends Div implements AfterNavigationObserver {
         divisionsGrid.asSingleSelect().addValueChangeListener(event -> populateForm(event.getValue()));
         // Configure Form
         binder = new Binder<>(DivisionDto.class);
+
+        binder.forField(nameField)
+                .withValidator(new StringLengthValidator(
+                        "Name is required", 1, null))
+                .bind(DivisionDto::getName, DivisionDto::setName);
+        binder.forField(directorField)
+                .withValidator(new StringLengthValidator(
+                        "Director is required", 1, null))
+                .bind(DivisionDto::getDirector, DivisionDto::setDirector);
         // Bind fields. This where you'd define e.g. validation rules
 //        binder.bindInstanceFields(this);
 //        cancel.addClickListener(e -> divisions.asSingleSelect().clear());
-        cancel.addClickListener(e -> clearFields());
+        cancel.addClickListener(e -> {
+            // clear fields by setting null
+            clearFields();
+        });
 
         save.addClickListener(e -> {
-            createDivision(divisionController);
-            refreshGridList();
-            clearFields();
+//            createDivision(divisionController);
+//            refreshGridList();
+//            clearFields();
+            if (binder.writeBeanIfValid(DivisionDto.DivisionDto())) {
+                createDivision(divisionController);
+                refreshGridList();
+                clearFields();
+            } else {
+                BinderValidationStatus<DivisionDto> validate = binder.validate();
+                String errorText = validate.getFieldValidationStatuses()
+                        .stream().filter(BindingValidationStatus::isError)
+                        .map(BindingValidationStatus::getMessage)
+                        .map(Optional::get).distinct()
+                        .collect(Collectors.joining(", "));
+            }
+
         });
         SplitLayout splitLayout = new SplitLayout();
         splitLayout.setSizeFull();
@@ -101,16 +124,18 @@ public class DivisionsView extends Div implements AfterNavigationObserver {
 
     private void createDivision(@Autowired DivisionController controller) {
         try {
-            if(parentDivisionComboBox.isEmpty()){
+            if (parentDivisionComboBox.isEmpty()
+                    || parentDivisionComboBox.getValue().equals("None")) {
                 controller.createDivision(new CreateDivisionDto(nameField.getValue(),
                         originalNameField.getValue(),
                         directorField.getValue()));
             } else {
-            controller.createDivision(new CreateDivisionDto(nameField.getValue(),
-                    originalNameField.getValue(),
-                    directorField.getValue(),
-                    controller.getDivisionByName(parentDivisionComboBox.getValue()).id
-            ));}
+                controller.createDivision(new CreateDivisionDto(nameField.getValue(),
+                        originalNameField.getValue(),
+                        directorField.getValue(),
+                        controller.getDivisionByName(parentDivisionComboBox.getValue()).id
+                ));
+            }
         } catch (Exception ex) {
             Notification.show("You did something wrong...\n Try again!");
         }
@@ -126,17 +151,28 @@ public class DivisionsView extends Div implements AfterNavigationObserver {
         FormLayout formLayout = new FormLayout();
         editorDiv.add(createDivisionTitle);
         parentDivisionComboBox.setItems(divisionController.getAllDivisions().stream().map(DivisionDto::getName));
-        nameField.setRequired(true);
-        nameField.setPlaceholder("Name");
+
+        nameField.setPlaceholder("Switchfully");
+        nameField.setLabel("Name");
         nameField.setRequiredIndicatorVisible(true);
 
-        directorField.setRequired(true);
-        directorField.setPlaceholder("Director");
+        originalNameField.setLabel("Original Name");
+        originalNameField.setPlaceholder("Original Name...");
+
+        directorField.setLabel("Director");
+        directorField.setPlaceholder("John Doe");
         directorField.setRequiredIndicatorVisible(true);
-        addFormItem(editorDiv, formLayout, nameField, "Name*");
-        addFormItem(editorDiv, formLayout, originalNameField, "Original Name");
-        addFormItem(editorDiv, formLayout, directorField, "Director*");
-        addFormItem(editorDiv, formLayout, parentDivisionComboBox, "Parent Division");
+
+        parentDivisionComboBox.setLabel("Parent Division");
+        parentDivisionComboBox.setValue("None");
+//        addFormItem(editorDiv, formLayout, nameField, "Name*");
+//        addFormItem(editorDiv, formLayout, originalNameField, "Original Name");
+//        addFormItem(editorDiv, formLayout, directorField, "Director*");
+//        addFormItem(editorDiv, formLayout, parentDivisionComboBox, "Parent Division");
+        editorDiv.add(nameField);
+        editorDiv.add(originalNameField);
+        editorDiv.add(directorField);
+        editorDiv.add(parentDivisionComboBox);
         createButtonLayout(editorDiv);
         splitLayout.addToSecondary(editorDiv);
     }
@@ -168,10 +204,9 @@ public class DivisionsView extends Div implements AfterNavigationObserver {
     }
 
     private void clearFields() {
-        nameField.setValue("");
+        binder.readBean(null);
         originalNameField.setValue("");
-        directorField.setValue("");
-        parentDivisionComboBox.setItems(divisionController.getAllDivisions().stream().map(DivisionDto::getName));
+        parentDivisionComboBox.setValue("None");
     }
 
     @Override
