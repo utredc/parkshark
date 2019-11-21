@@ -37,5 +37,11 @@ public class InvoiceController {
                     .collect(Collectors.toList());
     }
 
+    @PostMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public InvoiceDto createInvoicesForMember(@PathVariable ("id") long id){
+        return invoiceMapper.mapToDto(invoiceService.createNewInvoiceForId(id));
+    }
+
 
 }
