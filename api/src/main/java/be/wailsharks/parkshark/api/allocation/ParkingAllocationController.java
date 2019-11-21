@@ -37,10 +37,10 @@ public class ParkingAllocationController {
     }
 
     @PutMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ParkingAllocationDto stopParkingAllocation(@RequestBody StopParkingAllocationDto stopParkingAllocationDto) {
-        return ParkingAllocationMapper.mapStoppedToDto(
-                parkingAllocationService.stopParkingAllocation(stopParkingAllocationDto.getMemberId(), stopParkingAllocationDto.getAllocationId()));
+        ParkingAllocation allocation = parkingAllocationService.stopParkingAllocation(stopParkingAllocationDto.getMemberId(), stopParkingAllocationDto.getAllocationId());
+        return ParkingAllocationMapper.mapStoppedToDto(allocation);
     }
 
     @GetMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
