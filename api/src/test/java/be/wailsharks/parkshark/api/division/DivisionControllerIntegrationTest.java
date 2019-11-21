@@ -1,17 +1,11 @@
 package be.wailsharks.parkshark.api.division;
 
 import be.wailsharks.parkshark.api.ControllerIntegrationTest;
-import be.wailsharks.parkshark.api.TestRunApplication;
 import be.wailsharks.parkshark.api.division.dto.CreateDivisionDto;
 import be.wailsharks.parkshark.api.division.dto.DivisionDto;
 import be.wailsharks.parkshark.domain.division.Division;
-import be.wailsharks.parkshark.domain.division.DivisionRepository;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
