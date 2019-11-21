@@ -2,9 +2,14 @@ package be.wailsharks.parkshark.service.allocation;
 
 import be.wailsharks.parkshark.domain.allocation.ParkingAllocation;
 import be.wailsharks.parkshark.domain.allocation.ParkingAllocationRepository;
+import be.wailsharks.parkshark.domain.allocation.Status;
 import be.wailsharks.parkshark.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ParkingAllocationService {
@@ -39,5 +44,22 @@ public class ParkingAllocationService {
         }
         allocation.stopParkingSpotAllocation();
         return allocation;
+    }
+
+    public List<ParkingAllocation> getAllParkingAllocations(String status, int amount) {
+        List<ParkingAllocation> result = new ArrayList<>();
+        if (status == null) {
+            parkingAllocationRepository.findAll().forEach(result::add);
+        } else {
+            result = parkingAllocationRepository.findByStatusIs(Status.valueOf(status.toUpperCase()));
+        }
+
+        if (amount == 0) {
+            return result;
+        } else {
+            return result.stream()
+                    .limit(amount)
+                    .collect(Collectors.toList());
+        }
     }
 }
