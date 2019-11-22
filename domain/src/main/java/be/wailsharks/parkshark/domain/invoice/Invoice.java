@@ -44,6 +44,14 @@ public class Invoice {
     public Invoice() {
     }
 
+    public Invoice(Member member, List<InvoiceItem> invoiceItems) {
+        this.member = member;
+        this.startDate = LocalDate.now();
+        this.expireDate = startDate.plusDays(DAYS_BEFORE_EXPIRING);
+        this.invoiceItems = invoiceItems;
+        this.status = InvoiceStatus.OPEN;
+    }
+
     public long getId() {
         return id;
     }

@@ -127,4 +127,8 @@ public class ParkingAllocation {
         double diffInMinutes = ChronoUnit.MINUTES.between(startTime,stopTime);
         return (int) Math.ceil(diffInMinutes/60);
     }
+
+    public void switchStatusToInvoiced() {
+        this.status = Status.INVOICED;
+    }
 }

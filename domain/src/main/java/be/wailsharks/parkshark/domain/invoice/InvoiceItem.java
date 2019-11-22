@@ -9,8 +9,8 @@ import javax.persistence.*;
 public class InvoiceItem {
 
     @Id
-    @SequenceGenerator(name = "invoice_seq_gen", sequenceName = "INVOICE_SEQ", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "invoice_seq_gen")
+    @SequenceGenerator(name = "invoice_item_seq_gen", sequenceName = "INVOICE_ITEM_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "invoice_item_seq_gen")
     @Column(name = "ID")
     private long id;
 
@@ -24,6 +24,7 @@ public class InvoiceItem {
     public InvoiceItem (ParkingAllocation parkingAllocation){
         this.parkingAllocation = parkingAllocation;
         price = parkingAllocation.calculatePrice();
+        parkingAllocation.switchStatusToInvoiced();
     }
 
     public InvoiceItem() {
