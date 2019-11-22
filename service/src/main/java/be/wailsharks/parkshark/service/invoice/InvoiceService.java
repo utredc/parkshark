@@ -10,6 +10,7 @@ import be.wailsharks.parkshark.domain.invoice.InvoiceRepository;
 import be.wailsharks.parkshark.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,12 +35,27 @@ public class InvoiceService {
         return invoiceRepository.findAllByMember(memberService.getSpecificMember(id));
     }
 
-    public Invoice createNewInvoiceForId(long id) {
+    public Invoice createNewInvoiceForMemberWithId(long id) {
         List<ParkingAllocation> parkingAllocations = parkingAllocationRepository.findByMemberAndStatusIs(memberService.getSpecificMember(id), Status.STOPPED);
         List<InvoiceItem> invoiceItems = new ArrayList<>();
         for (ParkingAllocation parkingAllocation : parkingAllocations) {
             invoiceItems.add(invoiceItemRepository.save(new InvoiceItem(parkingAllocation)));
         }
         return invoiceRepository.save(new Invoice(memberService.getSpecificMember(id),invoiceItems));
+    }
+
+    public List<Invoice> getAllInvoices() {
+        return invoiceRepository.findAll();
+    }
+
+    @Transactional
+    public Invoice closeInvoiceWithId(long id) {
+        Invoice invoice = getInvoiceById(id);
+        invoice.setClosed();
+        return invoice;
+    }
+
+    public Invoice getInvoiceById(long id) {
+        return invoiceRepository.findById(id).get();
     }
 }

@@ -57,6 +57,7 @@ public class ParkingAllocationMapper {
                 .setLicensePlateNumber(parkingAllocation.getLicensePlateNr())
                 .setParkingLotId(parkingAllocation.getParkingLot().getId())
                 .setStartTime(parkingAllocation.getStartTime().toString())
+                .setStopTime(parkingAllocation.getStopTime().toString())
                 .setStatus(parkingAllocation.getStatus().toString());
     }
 }
