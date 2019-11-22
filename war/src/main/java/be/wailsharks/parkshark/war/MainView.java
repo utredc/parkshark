@@ -1,9 +1,6 @@
 package be.wailsharks.parkshark.war;
 
-import be.wailsharks.parkshark.war.views.DivisionsView;
-import be.wailsharks.parkshark.war.views.HomeView;
-import be.wailsharks.parkshark.war.views.MembersView;
-import be.wailsharks.parkshark.war.views.ParkingLotView;
+import be.wailsharks.parkshark.war.views.*;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -73,6 +70,8 @@ public class MainView extends AppLayout {
         tabs.add(createTab(VaadinIcon.OFFICE, DIVISIONS_TITLE, DivisionsView.class));
         tabs.add(createTab(VaadinIcon.CAR, PARKING_LOTS_TITLE, ParkingLotView.class));
         tabs.add(createTab(VaadinIcon.USERS, MEMBERS_TITLE, MembersView.class));
+        tabs.add(createTab(VaadinIcon.QUESTION, "DIVSERVICE", DivisionsViewService.class));
+        tabs.add(createTab(VaadinIcon.DOLLAR, "Invoices", InvoiceView.class));
         return tabs.toArray(new Tab[tabs.size()]);
     }
 

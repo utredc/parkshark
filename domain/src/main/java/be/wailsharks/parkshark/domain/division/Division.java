@@ -62,6 +62,26 @@ public class Division {
         return parentDivisionId;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setOriginalName(String originalName) {
+        this.originalName = originalName;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public void setParentDivisionId(Long parentDivisionId) {
+        this.parentDivisionId = parentDivisionId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

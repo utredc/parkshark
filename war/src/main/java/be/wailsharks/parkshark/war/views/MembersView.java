@@ -93,8 +93,9 @@ public class MembersView extends Div implements AfterNavigationObserver {
         createEditorLayout(splitLayout);
         add(splitLayout);
     }
+
     private void listDivisions() {
-        membersGrid.setColumns("id", "firstName", "lastName", "licensePlateNr", "emailAddress","registrationDate");
+        membersGrid.setColumns("id", "firstName", "lastName", "licensePlateNr", "emailAddress", "registrationDate");
         membersGrid.setItems(memberController.getAllMembers());
     }
 
@@ -117,19 +118,52 @@ public class MembersView extends Div implements AfterNavigationObserver {
 
         editorDiv.add(createMemberTitle);
 //        parentDivisionComboBox.setItems(controller.getAllDivisions().stream().map(DivisionDto::getName));
+        firstName.setLabel("First Name");
+        firstName.setRequired(true);
+        firstName.setRequiredIndicatorVisible(true);
+
+        lastName.setLabel("Last Name");
+        lastName.setRequired(true);
+        lastName.setRequiredIndicatorVisible(true);
+
+        licensePlateNr.setLabel("License plate");
+        licensePlateNr.setRequired(true);
+        licensePlateNr.setRequiredIndicatorVisible(true);
+
+        licensePlateCountry.setLabel("Issuing Country");
+        licensePlateCountry.setRequired(true);
+        licensePlateCountry.setRequiredIndicatorVisible(true);
+
+        telephoneNr.setLabel("Telephone Number");
+        telephoneNr.setRequired(true);
+        telephoneNr.setRequiredIndicatorVisible(true);
+
+        emailAddress.setLabel("Email Address");
+        emailAddress.setRequired(true);
+        emailAddress.setRequiredIndicatorVisible(true);
+
+        streetName.setLabel("Street");
+        streetName.setRequired(true);
+        streetName.setRequiredIndicatorVisible(true);
+
+        membershipLevel.setLabel("Membership Level");
+        membershipLevel.setRequired(true);
+        membershipLevel.setRequiredIndicatorVisible(true);
         membershipLevel.setItems("Bronze", "Silver", "Gold");
         membershipLevel.setAllowCustomValue(false);
         membershipLevel.setValue("Bronze");
-        editorDiv.add(firstName, lastName, licensePlateNr,licensePlateCountry,telephoneNr,emailAddress,streetName,streetNumber,membershipLevel);
-//        addFormItem(editorDiv, formLayout, firstName, "First Name")
-//        addFormItem(editorDiv, formLayout, lastName, "Last Name");
-//        addFormItem(editorDiv, formLayout, licensePlateNr, "License Plate Nr");
-//        addFormItem(editorDiv, formLayout, licensePlateCountry, "License Plate Country");
-//        addFormItem(editorDiv, formLayout, telephoneNr, "Telephone Nr");
-//        addFormItem(editorDiv, formLayout, emailAddress, "Email Address");
-//        addFormItem(editorDiv, formLayout, streetName, "Street Name");
-//        addFormItem(editorDiv, formLayout, streetNumber, "Street Number");
-//        addFormItem(editorDiv, formLayout, membershipLevel, "Membership Level");
+//        editorDiv.add(firstName, lastName, licensePlateNr, licensePlateCountry, telephoneNr,
+//        emailAddress, streetName, streetNumber, membershipLevel);
+        addFormItem(editorDiv, formLayout, firstName,"firstName");
+        addFormItem(editorDiv, formLayout, lastName,"lastName");
+        addFormItem(editorDiv, formLayout, licensePlateNr,null);
+        addFormItem(editorDiv, formLayout, licensePlateCountry,null);
+        addFormItem(editorDiv, formLayout, telephoneNr,null);
+        addFormItem(editorDiv, formLayout, emailAddress,null);
+        addFormItem(editorDiv, formLayout, streetName,null);
+        addFormItem(editorDiv, formLayout, streetNumber,null);
+        addFormItem(editorDiv, formLayout, membershipLevel,null);
+//        editorDiv.
         createButtonLayout(editorDiv);
         splitLayout.addToSecondary(editorDiv);
     }
