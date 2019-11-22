@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface InvoiceRepository extends CrudRepository<Invoice, Long> {
     List<Invoice> findAllByMember(Member member);
+
+    List<Invoice> findAll();
 }

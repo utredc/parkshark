@@ -1,6 +1,7 @@
 package be.wailsharks.parkshark.domain.invoice;
 
 import be.wailsharks.parkshark.domain.allocation.ParkingAllocation;
+import be.wailsharks.parkshark.domain.allocation.Status;
 import be.wailsharks.parkshark.domain.members.Member;
 
 import javax.persistence.*;
@@ -103,4 +104,8 @@ public class Invoice {
                 .collect(Collectors.toList());
     }
 
+    public void setClosed() {
+        this.status = InvoiceStatus.CLOSED;
+        paymentDate = LocalDate.now();
+    }
 }
