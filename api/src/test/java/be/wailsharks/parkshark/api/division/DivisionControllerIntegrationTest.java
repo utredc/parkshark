@@ -14,6 +14,7 @@ import java.util.List;
 import static io.restassured.http.ContentType.JSON;
 import static org.assertj.core.api.Assertions.assertThat;
 
+
 class DivisionControllerIntegrationTest  extends ControllerIntegrationTest {
     private Division testDivision1, testDivision2;
 

@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.test.context.jdbc.Sql;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = TestRunApplication.class)
 public abstract class ControllerIntegrationTest {
@@ -42,7 +43,7 @@ public abstract class ControllerIntegrationTest {
 
     @BeforeEach
     void setUp() {
-
+        parkingAllocationRepository.deleteAll();
         parkingLotRepository.deleteAll();
         divisionRepository.deleteAll();
         contactPersonRepository.deleteAll();

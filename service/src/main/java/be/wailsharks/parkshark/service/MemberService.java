@@ -29,8 +29,9 @@ public class MemberService {
     }
 
     public Member getSpecificMember(Long id) {
-        if (memberRepository.findById(id).isPresent()) {
-            return memberRepository.findById(id).get();
-        } else throw new NoMemberWithIdException("No member with this id");
+        if (!memberRepository.findById(id).isPresent()) {
+            throw new NoMemberWithIdException("No member with this id");
+        }
+        return memberRepository.findById(id).get();
     }
 }
